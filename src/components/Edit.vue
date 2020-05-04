@@ -1,5 +1,5 @@
 <template>
-    <div v-if="checkAccess()" class="md-layout md-gutter md-alignment-top-center">
+    <div v-if="authorized" class="md-layout md-gutter md-alignment-top-center">
         <md-button style="margin-top: 5%;" @click="redirectToAuth()">
             <md-icon>verified_user</md-icon> SIGN IN WITH GOOGLE
         </md-button>
@@ -87,11 +87,11 @@
                         <md-icon>playlist_add</md-icon>
                         ADD MATCH
                     </md-button>
-                    <md-button class="md-raised" style="margin: 0 1% 0 0" @click="save()">
+                    <md-button type="submit" class="md-raised" style="margin: 0 1% 0 0" @click="save()">
                         <md-icon>save</md-icon>
                         SAVE
                     </md-button>
-                    <md-button class="md-raised" style="margin: 0 1% 0 0" @click="remove()">
+                    <md-button type="submit" class="md-raised" style="margin: 0 1% 0 0" @click="remove()">
                         <md-icon>delete</md-icon>
                         DELETE
                     </md-button>
@@ -103,7 +103,6 @@
 
 <script>
 import axios from 'axios';
-import moment from 'moment';
 import props from '../../props';
 
 export default {
@@ -112,6 +111,13 @@ export default {
             videoURL: '',
             videoInfo: null,
             matches: [],
+            authorized: false,
+            // snackbar: {
+            //     show: false,
+            //     message: '',
+            //     position: 'left',
+            //     duration: 4000,
+            // },
         }
     },
     computed: {
@@ -135,15 +141,19 @@ export default {
             this.matches = this.$route.params.record.matches;
         }
     },
+    mounted() {
+        this.authorized = !localStorage.getItem('g_auth');
+    },
     methods: {
+        openSnackbar(message) {
+            this.snackbar.show = true;
+            this.snackbar.message = message;
+        },
         getCastImage(char) {
             if (this.cast.indexOf(char) === -1) {
                 return null;
             }
             return require('../assets/cast/' + char + '.gif');
-        },
-        checkAccess() {
-            return !localStorage.getItem('g_auth');
         },
         redirectToAuth() {
             const url = 'https://accounts.google.com/o/oauth2/v2/auth?' +
@@ -170,7 +180,6 @@ export default {
                 }
             }).then((response) => {
                 this.videoInfo = response.data.items[0];
-                this.videoInfo.snippet.publishedAt = moment(this.videoInfo.snippet.publishedAt).format('DD/MM/YYYY');
             }).catch((response) => {
                 // auth again i guess, refresh token is was intended to make that we doesn't need to worry with this.
                 const url = 'https://accounts.google.com/o/oauth2/v2/auth?' +
@@ -197,6 +206,7 @@ export default {
                 //
                 this.$route.params.record = null;
                 // clear page
+                this.$toast.success('Record updated successfully.');
                 this.clear();
                 return;
             }
@@ -211,10 +221,13 @@ export default {
             }
             this.$store.commit('record', record);
             // clear page
+            this.$toast.success('Record saved successfully.');
             this.clear();
         },
         remove(record) {
             this.$store.commit('removeRecord', record);
+            this.$toast.success('Record removed successfully.');
+            this.clear();
         },
         clear() {
             this.videoURL = '';

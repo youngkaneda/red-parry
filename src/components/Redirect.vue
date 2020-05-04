@@ -24,6 +24,7 @@ export default {
         }).then(response => {
             localStorage.setItem('g_auth', JSON.stringify(response.data));
             localStorage.setItem('refresh_token', response.data.refresh_token);
+            this.$router.push('/edit');
             setInterval(() => {
                 console.log('Refreshing token.');
                 const refreshReq = new URLSearchParams();
@@ -41,8 +42,6 @@ export default {
                 });
             }, 1000 * response.data.expires_in);
         });
-
-        this.$router.push('/edit');
     }
 }
 </script>

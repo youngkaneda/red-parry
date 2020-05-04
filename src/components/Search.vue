@@ -1,10 +1,10 @@
 <template>
     <div style="padding-top: 1%">
         <div class="md-layout md-gutter md-alignment-top-center">
-            <md-menu md-direction="bottom-start" class="md-layout-item md-size-5">
-                <img :src="getCastImage(p1.char)" alt="" srcset="" md-menu-trigger>
+            <md-menu md-direction="bottom-start">
+                <img :src="getCastImage(p1.char)" alt="" srcset="" md-menu-trigger style="margin-left: 10px">
                 <md-menu-content>
-                    <md-menu-item v-for="(char, i) in cast" :key="i" @click="() => { p1.char = char }">
+                    <md-menu-item v-for="(char, i) in cast" :key="i" @click="p1.char = char; filter()">
                         <div>
                             <img :src="getCastImage(char)" alt="" srcset="">
                             <span style="text-align: left; margin-left: 10px">{{ char }}</span>
@@ -12,16 +12,16 @@
                     </md-menu-item>
                 </md-menu-content>
             </md-menu>
-            <md-field class="md-layout-item md-size-35" style="padding-left: 0%">
+            <md-field class="md-layout-item md-size-35" style="margin-left: 25px; padding-left: 0">
                 <label>P1 Name</label>
-                <md-input v-model="p1.name"></md-input>
+                <md-input v-model="p1.name" @change="filter()"></md-input>
             </md-field>
         </div>
         <div class="md-layout md-gutter md-alignment-top-center">
-            <md-menu md-direction="bottom-start" class="md-layout-item md-size-5">
-                <img :src="getCastImage(p2.char)" alt="" srcset="" md-menu-trigger>
+            <md-menu md-direction="bottom-start">
+                <img :src="getCastImage(p2.char)" alt="" srcset="" md-menu-trigger style="margin-left: 10px">
                 <md-menu-content>
-                    <md-menu-item v-for="(char, i) in cast" :key="i" @click="() => { p2.char = char }">
+                    <md-menu-item v-for="(char, i) in cast" :key="i" @click="p2.char = char; filter()">
                         <div>
                             <img :src="getCastImage(char)" alt="" srcset="">
                             <span style="text-align: left; margin-left: 10px">{{ char }}</span>
@@ -29,21 +29,21 @@
                     </md-menu-item>
                 </md-menu-content>
             </md-menu>
-            <md-field class="md-layout-item md-size-35" style="padding-left: 0%">
+            <md-field class="md-layout-item md-size-35" style="margin-left: 25px; padding-left: 0">
                 <label>P2 Name</label>
-                <md-input v-model="p2.name"></md-input>
+                <md-input v-model="p2.name" @change="filter()"></md-input>
             </md-field>
         </div>
         <div class="md-layout md-gutter md-alignment-center-center">
             <md-field class="md-layout-item md-size-40" style="padding-left: 0%">
                 <label>Channel</label>
-                <md-input v-model="channel"></md-input>
+                <md-input v-model="channel" @change="filter()"></md-input>
             </md-field>
         </div>
         <div class="md-layout md-gutter md-alignment-center-center">
             <md-field class="md-layout-item md-size-40" style="padding-left: 0%">
                 <label>Title</label>
-                <md-input v-model="title"></md-input>
+                <md-input v-model="title" @change="filter()"></md-input>
             </md-field>
         </div>
         <div class="md-layout md-gutter md-alignment-center-center"
@@ -147,7 +147,39 @@ export default {
         },
         editRecord(record) {
             this.$router.push({ name: 'edit', params: { record, }, });
-        }
+        },
+        filter() {
+            let records = this.deepCopyFunction(
+                this.records.filter((record) => {
+                    const channel = this.channel ? record.channel.name === this.channel : true;
+                    const title = this.title ? record.title === this.title : true;
+                    return channel && title;
+                })
+            );
+            records.forEach((record) => {
+                record.matches = record.matches.filter((match) => {
+                    const p1Char = this.p1.char === 'any' ? true : match.p1.char === this.p1.char;
+                    const p2Char = this.p2.char === 'any' ? true : match.p2.char === this.p2.char;
+                    const p1Name = this.p1.name ? match.p1.name === this.p1.name : true;
+                    const p2Name = this.p2.name ? match.p2.name === this.p2.name : true;
+                    return p1Char && p2Char && p1Name && p2Name;
+                });
+            });
+            console.log(this.records);
+            this.filteredRecords = records;
+        },
+        deepCopyFunction(inObject) {
+            let outObject, value, key;
+            if (typeof inObject !== "object" || inObject === null) {
+                return inObject;
+            }
+            outObject = Array.isArray(inObject) ? [] : {};
+            for (key in inObject) {
+                value = inObject[key];
+                outObject[key] = this.deepCopyFunction(value);
+            }
+            return outObject;
+        },
     }
 }
 </script>
