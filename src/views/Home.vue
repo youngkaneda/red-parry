@@ -2,7 +2,6 @@
     <div>
         <div class="md-layout md-gutter md-alignment-center-left" style="padding: 0.5% 0 0.5% 0; background-color: black;">
             <div class="md-layout-item md-size-20" style="display: flex; align-content: center !important;">
-                <img :src="getCastImage('sean')" alt="">
                 <span class="md-title"
                     @click="() => { $router.push('/') }"
                     style="cursor: pointer; margin: 10px 7px 0 20px;"
