@@ -8,6 +8,10 @@ export default {
     created() {
         const params = new URLSearchParams(window.location.search);
 
+        if (!params.get('code')) {
+            this.$router.push('/');
+        }
+
         this.$router.replace({'query': null});
 
         const req = new URLSearchParams();

@@ -31,7 +31,7 @@
                     <md-input v-model="this.videoInfo.snippet.publishedAt" disabled></md-input>
                 </md-field>
             </div>
-            <div class="md-layout md-gutter md-alignment-top-center"
+            <div class="md-layout md-gutter md-alignment-top-center" style="padding-left: 40px;"
                 v-for="(match, i) in matches" :key="i"
             >
                 <md-field class="md-layout-item md-size-10" style="padding-left: 0%; margin-left: 2%;">
@@ -42,8 +42,8 @@
                     <label>Player 1</label>
                     <md-input v-model="match.p1.name" placeholder="Unknow Player"></md-input>
                 </md-field>
-                <md-menu md-direction="bottom-start" class="md-layout-item md-size-5">
-                    <img :src="getCastImage(match.p1.char)" alt="" srcset="" md-menu-trigger style="margin-top: 20%">
+                <md-menu md-direction="bottom-start">
+                    <img :src="getCastImage(match.p1.char)" alt="" srcset="" md-menu-trigger style="margin-top: 10%; padding: 0 10px 0 10px">
                     <md-menu-content>
                         <md-menu-item v-for="(char, i) in cast" :key="i" @click="() => { match.p1.char = char }">
                             <div>
@@ -54,8 +54,8 @@
                     </md-menu-content>
                 </md-menu>
                 <span class="md-subheading table-span" style="margin-top: 1.1%">VS</span>
-                <md-menu md-direction="bottom-start" class="md-layout-item md-size-5">
-                    <img :src="getCastImage(match.p2.char)" alt="" srcset="" md-menu-trigger style="margin-top: 20%">
+                <md-menu md-direction="bottom-start">
+                    <img :src="getCastImage(match.p2.char)" alt="" srcset="" md-menu-trigger style="margin-top: 10%; padding: 0 10px 0 10px">
                     <md-menu-content>
                         <md-menu-item v-for="(char, i) in cast" :key="i" @click="() => { match.p2.char = char }">
                             <div>
@@ -69,7 +69,7 @@
                     <label>Player 2</label>
                     <md-input v-model="match.p2.name" placeholder="Unknow Player"></md-input>
                 </md-field>
-                <div class="md-layout-item md-size-10" style="padding-left: 1%; margin-top: 0.5%;">
+                <div class="md-layout-item md-size-15" style="padding-left: 1%; margin-top: 0.5%;">
                     <md-button class="md-icon-button" size="sm" @click="duplicate(i)">
                         <md-icon>file_copy</md-icon>
                     </md-button>
@@ -103,6 +103,7 @@
 
 <script>
 import axios from 'axios';
+import moment from 'moment';
 import props from '../../props';
 
 export default {
@@ -112,12 +113,6 @@ export default {
             videoInfo: null,
             matches: [],
             authorized: false,
-            // snackbar: {
-            //     show: false,
-            //     message: '',
-            //     position: 'left',
-            //     duration: 4000,
-            // },
         }
     },
     computed: {
@@ -180,6 +175,7 @@ export default {
                 }
             }).then((response) => {
                 this.videoInfo = response.data.items[0];
+                this.videoInfo.snippet.publishedAt = moment(this.videoInfo.snippet.publishedAt).format('DD/MM/YYYY');
             }).catch((response) => {
                 // auth again i guess, refresh token is was intended to make that we doesn't need to worry with this.
                 const url = 'https://accounts.google.com/o/oauth2/v2/auth?' +
@@ -272,7 +268,7 @@ export default {
                 outObject[key] = this.deepCopyFunction(value);
             }
             return outObject;
-        }
+        },
     },
 }
 </script>
