@@ -69,7 +69,7 @@
                     <label>Player 2</label>
                     <md-input v-model="match.p2.name" placeholder="Unknow Player"></md-input>
                 </md-field>
-                <div class="md-layout-item md-size-15" style="padding-left: 1%; margin-top: 0.5%;">
+                <div class="md-layout-item md-size-15" style="padding-left: 5px; margin-top: 0.5%;">
                     <md-button class="md-icon-button" size="sm" @click="duplicate(i)">
                         <md-icon>file_copy</md-icon>
                     </md-button>

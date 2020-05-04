@@ -14,7 +14,7 @@
             </md-menu>
             <md-field class="md-layout-item md-size-35" style="margin-left: 25px; padding-left: 0">
                 <label>P1 Name</label>
-                <md-input v-model="p1.name" @change="filter()"></md-input>
+                <md-input v-model="p1.name" @keyup="filter()"></md-input>
             </md-field>
         </div>
         <div class="md-layout md-gutter md-alignment-top-center">
@@ -31,19 +31,19 @@
             </md-menu>
             <md-field class="md-layout-item md-size-35" style="margin-left: 25px; padding-left: 0">
                 <label>P2 Name</label>
-                <md-input v-model="p2.name" @change="filter()"></md-input>
+                <md-input v-model="p2.name" @keyup="filter()"></md-input>
             </md-field>
         </div>
         <div class="md-layout md-gutter md-alignment-center-center">
             <md-field class="md-layout-item md-size-40" style="padding-left: 0%">
                 <label>Channel</label>
-                <md-input v-model="channel" @change="filter()"></md-input>
+                <md-input v-model="channel" @keyup="filter()"></md-input>
             </md-field>
         </div>
         <div class="md-layout md-gutter md-alignment-center-center">
             <md-field class="md-layout-item md-size-40" style="padding-left: 0%">
                 <label>Title</label>
-                <md-input v-model="title" @change="filter()"></md-input>
+                <md-input v-model="title" @keyup="filter()"></md-input>
             </md-field>
         </div>
         <div class="md-layout md-gutter md-alignment-center-center"
@@ -54,9 +54,9 @@
             >
                 <div class="md-layout md-gutter" style="margin-bottom: 5px">
                     <div class="md-layout-item md-size-80" style="display: inline; float: left">
-                        <span class="md-title" @click="openUrl(record.url)" style="cursor: pointer">{{ record.title }}</span>
+                        <span class="md-title link" @click="openUrl(record.url)" style="cursor: pointer">{{ record.title }}</span>
                         <br>
-                        <span class="md-subheading" @click="openUrl(record.channel.url)" style="cursor: pointer">{{ record.channel.name }}</span>
+                        <span class="md-subheading link" @click="openUrl(record.channel.url)" style="cursor: pointer">{{ record.channel.name }}</span>
                     </div>
                     <div class="md-layout-item md-size-20" style="display: inline">
                         <div style="float: right" @click="editRecord(record)">
@@ -197,5 +197,8 @@ export default {
     overflow:hidden;
     white-space:nowrap;
     max-width: 200px;
+}
+.link:hover {
+    color: #797979;
 }
 </style>

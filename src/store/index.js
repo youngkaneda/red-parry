@@ -82,7 +82,7 @@ export default new Vuex.Store({
     },
     mutations: {
         record(state, record) {
-            state.records.push(record);
+            state.records.splice(0, 0, record);
         },
         updateRecord(state, record) {
             state.records.forEach((el) => {
