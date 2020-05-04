@@ -46,19 +46,20 @@
                 <md-input v-model="title"></md-input>
             </md-field>
         </div>
-        <div class="md-layout md-gutter md-alignment-center-center" style="margin-top: 2%">
+        <div class="md-layout md-gutter md-alignment-center-center"
+            v-for="(record, i) in filteredRecords.slice(this.offset, this.offset + 5)" :key="i"
+            style="margin-top: 1%">
             <div class="md-layout-item md-size-40"
                 style="padding: 0; margin-bottom: 20px"
-                v-for="record in records.slice(this.offset, this.offset + 5)" :key="record.id"
             >
-                <div class="md-layout md-gutter" style="margin-bottom: 10px">
-                    <div class="md-layout-item md-size-40" style="display: inline; float: left">
+                <div class="md-layout md-gutter" style="margin-bottom: 5px">
+                    <div class="md-layout-item md-size-80" style="display: inline; float: left">
                         <span class="md-title" @click="openUrl(record.url)" style="cursor: pointer">{{ record.title }}</span>
                         <br>
                         <span class="md-subheading" @click="openUrl(record.channel.url)" style="cursor: pointer">{{ record.channel.name }}</span>
                     </div>
-                    <div class="md-layout-item md-size-60" style="display: inline">
-                        <div @click="openUrl(match.timestamp)" style="float: right">
+                    <div class="md-layout-item md-size-20" style="display: inline">
+                        <div style="float: right" @click="editRecord(record)">
                             <md-icon class="md-size-2x" style="cursor: pointer">edit</md-icon>
                         </div>
                     </div>
@@ -67,18 +68,26 @@
                     style="padding: 10px 0 10px 0; border-bottom: 1px solid lightgray"
                     v-for="(match, i) in record.matches" :key="i"
                 >
-                    <span class="md-subheading table-span" style="margin-left: 33%">{{ match.p1.name }}</span>
-                    <img :src="getCastImage(match.p1.char)" alt="">
-                    <span class="md-subheading table-span">VS</span>
-                    <img :src="getCastImage(match.p2.char)" alt="">
-                    <span class="md-subheading table-span">{{ match.p2.name }}</span>
-                    <div @click="openUrl(match.timestamp)" style="display: inline; float: right">
-                        <md-icon class="md-size-2x" style="cursor: pointer">play_circle_fill</md-icon>
+                    <div class="md-layout md-gutter md-alignment-center-center">
+                        <div class="md-layout-item md-size-35" style="padding-right: 0;">
+                            <span class="md-subheading table-span text" style="float: right">{{ match.p1.name }}</span>
+                        </div>
+                        <div class="md-layout-item md-size-30" style="padding: 0; text-align: center;">
+                            <img :src="getCastImage(match.p1.char)" alt="">
+                            <span class="md-subheading table-span">VS</span>
+                            <img :src="getCastImage(match.p2.char)" alt="">
+                        </div>
+                        <div class="md-layout-item md-size-25" style="padding-left: 0">
+                            <span class="md-subheading table-span text" style="float: left;">{{ match.p2.name }}</span>
+                        </div>
+                        <div @click="openUrl(match.timestamp)" class="md-layout-item md-size-10">
+                            <md-icon class="md-size-2x" style="cursor: pointer; float: right">play_circle_fill</md-icon>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="md-layout md-gutter md-alignment-center-center">
+        <div class="md-layout md-gutter md-alignment-center-center" style="margin-bottom: 1%">
             <Pagination :total="records.length" :reason="pagination.reason" :size="pagination.size" @pageChanged="updateDataTable"/>
         </div>
     </div>
@@ -86,12 +95,14 @@
 
 <script>
 import Pagination from './Pagination';
+import Vue from 'vue';
 
 export default {
     components: {
         Pagination,
     },
     data: () => ({
+        test: false,
         initial: "Initial Value",
         p1: {
             name: '',
@@ -106,8 +117,9 @@ export default {
         offset: 0,
         pagination: {
             reason: 5,
-            size: 3,
-        }
+            size: 5,
+        },
+        filteredRecords: [],
     }),
     computed: {
         cast() {
@@ -117,7 +129,8 @@ export default {
             return this.$store.state.records;
         }
     },
-    mounted() {
+    created() {
+        this.filteredRecords = this.records;
     },
     methods: {
         openUrl(url) {
@@ -131,14 +144,26 @@ export default {
         },
         updateDataTable(val) {
             this.offset = this.pagination.reason * val;
-            console.log(this.offset);
+        },
+        editRecord(record) {
+            this.$router.push({ name: 'edit', params: { record, }, });
         }
     }
 }
 </script>
 
 <style scoped>
+[v-cloak] {
+  display: none;
+}
+
 .table-span {
     padding: 0 10px 0 10px !important;
+}
+.text {
+    text-overflow: ellipsis;
+    overflow:hidden;
+    white-space:nowrap;
+    max-width: 200px;
 }
 </style>
