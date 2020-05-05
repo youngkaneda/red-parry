@@ -105,6 +105,7 @@
 import axios from 'axios';
 import moment from 'moment';
 import props from '../../props';
+import { v4 as uuidv4 } from 'uuid';
 
 export default {
     data() {
@@ -119,6 +120,10 @@ export default {
         cast() {
             return this.$store.state.cast;
         },
+        // workaround
+        toEdit() {
+            return this.$store.state.toEdit;
+        }
     },
     watch: {
         videoURL(val) {
@@ -130,10 +135,10 @@ export default {
         }
     },
     created() {
-        if (this.$route.params.record) {
-            this.videoURL = this.$route.params.record.url;
+        if (this.toEdit) {
+            this.videoURL = this.toEdit.url;
             this.search();
-            this.matches = this.$route.params.record.matches;
+            this.matches = this.toEdit.matches;
         }
     },
     mounted() {
@@ -195,18 +200,17 @@ export default {
             });
             // save in firestore.
             let record = {};
-            if (this.$route.params.record) {
-                record = this.$route.params.record;
+            record.id = uuidv4();
+            if (this.toEdit) {
+                record = this.toEdit;
                 record.matches = this.matches;
                 this.$store.commit('updateRecord', record);
-                //
-                this.$route.params.record = null;
+                this.$store.commit('toEdit', null);
                 // clear page
                 this.$toast.success('Record updated successfully.');
                 this.clear();
                 return;
             }
-            record.id = this.videoInfo.id;
             record.matches = this.matches;
             record.url = this.videoURL;
             record.date = this.videoInfo.snippet.publishedAt;

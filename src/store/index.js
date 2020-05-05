@@ -1,14 +1,17 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import createPersistedState from 'vuex-persistedstate';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
+    plugins: [createPersistedState()],
     state: {
         cast: [
             'any', 'alex', 'sean', 'ibuki', 'necro', 'urien', 'gouki', 'yun', 'remy', 'q',
             'chunli', 'makoto', '12', 'yang', 'ken', 'hugo', 'elena', 'dudley', 'oro', 'ryu',
         ],
+        toEdit: null,
         records: [
             {
                 id: '0',
@@ -84,13 +87,17 @@ export default new Vuex.Store({
         record(state, record) {
             state.records.splice(0, 0, record);
         },
+        toEdit(state, record) {
+            state.toEdit = record;
+        },
         updateRecord(state, record) {
-            state.records.forEach((el) => {
+            let index = null;
+            state.records.forEach((el, i) => {
                 if (el.id === record.id) {
-                    // eslint-disable-next-line no-param-reassign
-                    el = record;
+                    index = i;
                 }
             });
+            state.records.splice(index, 1, record);
         },
         removeRecord(state, record) {
             const index = state.records.indexOf(record);

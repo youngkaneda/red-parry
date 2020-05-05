@@ -146,7 +146,8 @@ export default {
             this.offset = this.pagination.reason * val;
         },
         editRecord(record) {
-            this.$router.push({ name: 'edit', params: { record, }, });
+            this.$store.commit('toEdit', record);
+            this.$router.push({ name: 'edit' });
         },
         filter() {
             let records = this.deepCopyFunction(
