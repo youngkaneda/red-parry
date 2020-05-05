@@ -138,7 +138,7 @@ export default {
         if (this.toEdit) {
             this.videoURL = this.toEdit.url;
             this.search();
-            this.matches = this.toEdit.matches;
+            this.matches = this.deepCopy(this.toEdit.matches);
         }
     },
     mounted() {
@@ -200,7 +200,6 @@ export default {
             });
             // save in firestore.
             let record = {};
-            record.id = uuidv4();
             if (this.toEdit) {
                 record = this.toEdit;
                 record.matches = this.matches;
@@ -224,8 +223,11 @@ export default {
             this.$toast.success('Record saved successfully.');
             this.clear();
         },
-        remove(record) {
-            this.$store.commit('removeRecord', record);
+        remove() {
+            if (this.toEdit) {
+                this.$store.commit('removeRecord', this.toEdit.id);
+                this.$store.commit('toEdit', null);
+            }
             this.$toast.success('Record removed successfully.');
             this.clear();
         },
@@ -249,7 +251,7 @@ export default {
         },
         duplicate(index) {
             let match = {...this.matches[index]};
-            this.matches.splice(index, 0, this.deepCopyFunction(match));
+            this.matches.splice(index, 0, this.deepCopy(match));
         },
         swapPlayers(index) {
             let match = this.matches[index];
@@ -261,7 +263,7 @@ export default {
         removeMatch(index) {
             this.matches.splice(index, 1);
         },
-        deepCopyFunction(inObject) {
+        deepCopy(inObject) {
             let outObject, value, key;
             if (typeof inObject !== "object" || inObject === null) {
                 return inObject;
@@ -269,7 +271,7 @@ export default {
             outObject = Array.isArray(inObject) ? [] : {};
             for (key in inObject) {
                 value = inObject[key];
-                outObject[key] = this.deepCopyFunction(value);
+                outObject[key] = this.deepCopy(value);
             }
             return outObject;
         },

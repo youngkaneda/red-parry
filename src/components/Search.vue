@@ -130,6 +130,7 @@ export default {
         }
     },
     created() {
+        this.$store.commit('toEdit', null);
         this.filteredRecords = this.records;
     },
     methods: {
