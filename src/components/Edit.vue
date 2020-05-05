@@ -34,11 +34,11 @@
             <div class="md-layout md-gutter md-alignment-top-center" style="padding-left: 40px;"
                 v-for="(match, i) in matches" :key="i"
             >
-                <md-field class="md-layout-item md-size-10" style="padding-left: 0%; margin-left: 2%;">
+                <md-field class="md-layout-item md-size-10" style="padding-left: 0%; margin-left: 3.5%;">
                     <label>Timestamp URL</label>
                     <md-input v-model="match.timestamp" placeholder="Timestamp URL"></md-input>
                 </md-field>
-                <md-field class="md-layout-item md-size-10" style="padding-left: 0%; margin-left: 1%;">
+                <md-field class="md-layout-item md-size-10" style="padding-left: 0%; margin-left: 0.5%;">
                     <label>Player 1</label>
                     <md-input v-model="match.p1.name" placeholder="Unknow Player"></md-input>
                 </md-field>

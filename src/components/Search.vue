@@ -12,7 +12,7 @@
                     </md-menu-item>
                 </md-menu-content>
             </md-menu>
-            <md-field class="md-layout-item md-size-35" style="margin-left: 25px; padding-left: 0">
+            <md-field class="md-layout-item md-size-35" style="margin-left: 0.4%; padding-left: 0">
                 <label>P1 Name</label>
                 <md-input v-model="p1.name" @keyup="filter()"></md-input>
             </md-field>
@@ -29,7 +29,7 @@
                     </md-menu-item>
                 </md-menu-content>
             </md-menu>
-            <md-field class="md-layout-item md-size-35" style="margin-left: 25px; padding-left: 0">
+            <md-field class="md-layout-item md-size-35" style="margin-left: 0.4%; padding-left: 0">
                 <label>P2 Name</label>
                 <md-input v-model="p2.name" @keyup="filter()"></md-input>
             </md-field>
