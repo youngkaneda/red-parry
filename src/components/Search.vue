@@ -136,7 +136,7 @@ export default {
         },
         records() {
             let records = this.$store.state.records;
-            records.sort((a, b) => new Date(a.createdAt).getTime() > new Date(b.createdAt).getTime() ? 1 : -1);
+            records.sort((a, b) => new Date(a.createdAt.seconds).getTime() < new Date(b.createdAt.seconds).getTime() ? 1 : -1);
             return records;
         }
     },

@@ -111,6 +111,7 @@
 import axios from 'axios';
 import moment from 'moment';
 import props from '../../props';
+import security from '../security';
 import { v4 as uuidv4 } from 'uuid';
 
 export default {
@@ -181,7 +182,7 @@ export default {
             const id = this.videoURL.split('?v=')[1];
             axios.get(`https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${id}&key=${props.apiKey}`, {
                 headers: {
-                    Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('g_auth')).access_token,
+                    Authorization: 'Bearer ' + JSON.parse(security.decrypt(localStorage.getItem('g_auth'))).access_token,
                     Accept: 'application/json',
                 }
             }).then((response) => {
