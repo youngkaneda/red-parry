@@ -18,7 +18,7 @@ export default {
             });
             this.$store.commit('records', records);
         });
-    }
+    },
 }
 </script>
 

@@ -31,54 +31,60 @@
                     <md-input v-model="this.videoInfo.snippet.publishedAt" disabled></md-input>
                 </md-field>
             </div>
-            <div class="md-layout md-gutter md-alignment-top-center" style="padding-left: 40px;"
-                v-for="(match, i) in matches" :key="i"
-            >
-                <md-field class="md-layout-item md-size-10" style="padding-left: 0%; margin-left: 3.5%;">
-                    <label>Timestamp URL</label>
-                    <md-input v-model="match.timestamp" placeholder="Timestamp URL"></md-input>
-                </md-field>
-                <md-field class="md-layout-item md-size-10" style="padding-left: 0%; margin-left: 0.5%;">
-                    <label>Player 1</label>
-                    <md-input v-model="match.p1.name" placeholder="Unknow Player"></md-input>
-                </md-field>
-                <md-menu md-direction="bottom-start">
-                    <img :src="getCastImage(match.p1.char)" alt="" srcset="" md-menu-trigger style="margin-top: 10%; padding: 0 10px 0 10px">
-                    <md-menu-content>
-                        <md-menu-item v-for="(char, i) in cast" :key="i" @click="() => { match.p1.char = char }">
-                            <div>
-                                <img :src="getCastImage(char)" alt="" srcset="">
-                                <span style="text-align: left; margin-left: 10px">{{ char }}</span>
-                            </div>
-                        </md-menu-item>
-                    </md-menu-content>
-                </md-menu>
-                <span class="md-subheading table-span" style="margin-top: 1.1%">VS</span>
-                <md-menu md-direction="bottom-start">
-                    <img :src="getCastImage(match.p2.char)" alt="" srcset="" md-menu-trigger style="margin-top: 10%; padding: 0 10px 0 10px">
-                    <md-menu-content>
-                        <md-menu-item v-for="(char, i) in cast" :key="i" @click="() => { match.p2.char = char }">
-                            <div>
-                                <img :src="getCastImage(char)" alt="" srcset="">
-                                <span style="text-align: left; margin-left: 10px">{{ char }}</span>
-                            </div>
-                        </md-menu-item>
-                    </md-menu-content>
-                </md-menu>
-                <md-field class="md-layout-item md-size-10" style="padding-left: 0%">
-                    <label>Player 2</label>
-                    <md-input v-model="match.p2.name" placeholder="Unknow Player"></md-input>
-                </md-field>
-                <div class="md-layout-item md-size-15" style="padding-left: 5px; margin-top: 0.5%;">
-                    <md-button class="md-icon-button" size="sm" @click="duplicate(i)">
-                        <md-icon>file_copy</md-icon>
-                    </md-button>
-                    <md-button class="md-icon-button" size="sm" @click="swapPlayers(i)">
-                        <md-icon>swap_horiz</md-icon>
-                    </md-button>
-                    <md-button class="md-icon-button" size="sm" @click="removeMatch(i)">
-                        <md-icon>delete</md-icon>
-                    </md-button>
+            <div class="md-layout md-gutter md-alignment-top-center">
+                <div class="md-layout-item md-size-50" style="padding: 0">
+                    <div class="md-layout md-gutter md-alignment-top-center" v-for="(match, i) in matches" :key="i">
+                        <md-field class="md-layout-item md-size-15" style="padding-left: 0%; margin-right: 7.3%">
+                            <label>timestamp URL</label>
+                            <md-input v-model="match.timestamp"></md-input>
+                        </md-field>
+                        <md-field class="md-layout-item md-size-15" style="padding-left: 0%">
+                            <label>Player1</label>
+                            <md-input v-model="match.p1.name"></md-input>
+                        </md-field>
+                        <div class="md-layout-item md-size-10" style="margin-top: 1%">
+                            <md-menu md-direction="bottom-start" class="md-layout-item md-size-75">
+                                <img :src="getCastImage(match.p1.char)" alt="" srcset="" md-menu-trigger>
+                                <md-menu-content>
+                                    <md-menu-item v-for="(char, i) in cast" :key="i" @click="() => { match.p1.char = char }">
+                                        <div>
+                                            <img :src="getCastImage(char)" alt="" srcset="" class="md-layout-item md-size-45">
+                                            <span style="text-align: left; margin-left: 10px">{{ char }}</span>
+                                        </div>
+                                    </md-menu-item>
+                                </md-menu-content>
+                            </md-menu>
+                        </div>
+                        <span class="md-body-1 table-span">VS</span>
+                        <div class="md-layout-item md-size-10" style="margin-top: 1%">
+                            <md-menu md-direction="bottom-start" class="md-layout-item md-size-75">
+                                <img :src="getCastImage(match.p1.char)" alt="" srcset="" md-menu-trigger>
+                                <md-menu-content>
+                                    <md-menu-item v-for="(char, i) in cast" :key="i" @click="() => { match.p1.char = char }">
+                                        <div>
+                                            <img :src="getCastImage(char)" alt="" srcset="" class="md-layout-item md-size-45">
+                                            <span style="text-align: left; margin-left: 10px">{{ char }}</span>
+                                        </div>
+                                    </md-menu-item>
+                                </md-menu-content>
+                            </md-menu>
+                        </div>
+                        <md-field class="md-layout-item md-size-15" style="padding-left: 0%">
+                            <label>Player2</label>
+                            <md-input v-model="match.p2.name"></md-input>
+                        </md-field>
+                        <div class="md-layout-item md-size-20" style="margin-top: 0.7%;">
+                            <md-button class="md-icon-button" size="sm" @click="duplicate(i)">
+                                <md-icon>file_copy</md-icon>
+                            </md-button>
+                            <md-button class="md-icon-button" size="sm" @click="swapPlayers(i)">
+                                <md-icon>swap_horiz</md-icon>
+                            </md-button>
+                            <md-button class="md-icon-button" size="sm" @click="removeMatch(i)">
+                                <md-icon>delete</md-icon>
+                            </md-button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="md-layout md-gutter md-alignment-top-center">
@@ -279,4 +285,13 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.md-input {
+    box-sizing: border-box !important;
+    width: 100% !important;
+}
+.table-span {
+    padding: 0 10px 0 10px !important;
+    margin-top: 2%;
+}
+</style>
