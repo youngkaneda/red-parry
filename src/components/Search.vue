@@ -2,7 +2,7 @@
     <div style="padding-top: 1%" class="md-layout md-gutter md-alignment-top-center">
         <div class="md-layout-item md-size-45">
             <div class="md-layout md-gutter md-alignment-top-center">
-                <div class="md-layout-item md-size-10" style="margin-top: 1.5%">
+                <div class="md-layout-item md-size-10" style="margin-top: 1.5%; padding-left: 0">
                     <md-menu md-direction="bottom-start" class="md-layout-item md-size-95">
                         <img :src="getCastImage(p1.char)" alt="" srcset="" md-menu-trigger>
                         <md-menu-content>
@@ -21,7 +21,7 @@
                 </md-field>
             </div>
             <div class="md-layout md-gutter md-alignment-top-center">
-                <div class="md-layout-item md-size-10" style="margin-top: 1.5%">
+                <div class="md-layout-item md-size-10" style="margin-top: 1.5%; padding-left: 0">
                     <md-menu md-direction="bottom-start" class="md-layout-item md-size-95">
                         <img :src="getCastImage(p2.char)" alt="" srcset="" md-menu-trigger>
                         <md-menu-content>
@@ -74,13 +74,13 @@
                         <div class="md-layout-item md-size-35" style="padding-right: 0;">
                             <span class="md-body-2 table-span text" style="float: right">{{ match.p1.name }}</span>
                         </div>
-                        <div class="md-layout-item md-size-10">
+                        <div class="md-layout-item md-size-10" style="padding-right: 0">
                             <img :src="getCastImage(match.p1.char)" alt="">
                         </div>
                         <div class="md-layout-item md-size-10" style="padding: 0; text-align: center;">
                             <span class="md-body-2 table-span">VS</span>
                         </div>
-                        <div class="md-layout-item md-size-10">
+                        <div class="md-layout-item md-size-10" style="padding-left: 0">
                             <img :src="getCastImage(match.p2.char)" alt="">
                         </div>
                         <div class="md-layout-item md-size-30" style="padding-left: 0">

@@ -34,7 +34,7 @@
             <div class="md-layout md-gutter md-alignment-top-center">
                 <div class="md-layout-item md-size-50" style="padding: 0">
                     <div class="md-layout md-gutter md-alignment-top-center" v-for="(match, i) in matches" :key="i">
-                        <md-field class="md-layout-item md-size-15" style="padding-left: 0%; margin-right: 7.3%">
+                        <md-field class="md-layout-item md-size-15" style="padding-left: 0%; margin-right: 5%">
                             <label>timestamp URL</label>
                             <md-input v-model="match.timestamp"></md-input>
                         </md-field>
@@ -42,8 +42,8 @@
                             <label>Player1</label>
                             <md-input v-model="match.p1.name"></md-input>
                         </md-field>
-                        <div class="md-layout-item md-size-10" style="margin-top: 1%">
-                            <md-menu md-direction="bottom-start" class="md-layout-item md-size-75">
+                        <div class="md-layout-item md-size-10" style="margin-top: 1%; padding-right: 0">
+                            <md-menu md-direction="bottom-start" class="md-menu md-layout-item md-size-75">
                                 <img :src="getCastImage(match.p1.char)" alt="" srcset="" md-menu-trigger>
                                 <md-menu-content>
                                     <md-menu-item v-for="(char, i) in cast" :key="i" @click="() => { match.p1.char = char }">
@@ -55,12 +55,11 @@
                                 </md-menu-content>
                             </md-menu>
                         </div>
-                        <span class="md-body-1 table-span">VS</span>
-                        <div class="md-layout-item md-size-10" style="margin-top: 1%">
-                            <md-menu md-direction="bottom-start" class="md-layout-item md-size-75">
-                                <img :src="getCastImage(match.p1.char)" alt="" srcset="" md-menu-trigger>
+                        <div class="md-layout-item md-size-10" style="margin-top: 1%; padding-right: 0">
+                            <md-menu md-direction="bottom-start" class="md-menu md-layout-item md-size-75">
+                                <img :src="getCastImage(match.p2.char)" alt="" srcset="" md-menu-trigger>
                                 <md-menu-content>
-                                    <md-menu-item v-for="(char, i) in cast" :key="i" @click="() => { match.p1.char = char }">
+                                    <md-menu-item v-for="(char, i) in cast" :key="i" @click="() => { match.p2.char = char }">
                                         <div>
                                             <img :src="getCastImage(char)" alt="" srcset="" class="md-layout-item md-size-45">
                                             <span style="text-align: left; margin-left: 10px">{{ char }}</span>
@@ -73,7 +72,7 @@
                             <label>Player2</label>
                             <md-input v-model="match.p2.name"></md-input>
                         </md-field>
-                        <div class="md-layout-item md-size-20" style="margin-top: 0.7%;">
+                        <div class="md-layout-item md-size-25" style="margin-top: 0.7%;">
                             <md-button class="md-icon-button" size="sm" @click="duplicate(i)">
                                 <md-icon>file_copy</md-icon>
                             </md-button>
