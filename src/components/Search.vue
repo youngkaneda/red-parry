@@ -135,7 +135,9 @@ export default {
             return this.$store.state.cast;
         },
         records() {
-            return this.$store.state.records;
+            let records = this.$store.state.records;
+            records.sort((a, b) => new Date(a.createdAt).getTime() > new Date(b.createdAt).getTime() ? 1 : -1);
+            return records;
         }
     },
     mounted() {

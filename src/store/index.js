@@ -27,11 +27,9 @@ export default new Vuex.Store({
         },
         updateRecord(state, record) {
             db.collection('records').doc(record.id).set(record);
-            // state.records.splice(index, 1, record);
         },
         removeRecord(state, docId) {
             db.collection('records').doc(docId).delete();
-            // state.records.splice(index, 1);
         },
     },
     actions: {
