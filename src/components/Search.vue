@@ -54,7 +54,7 @@
             <div class="md-layout md-gutter md-alignment-center-center"
                 style="margin-top: 1%"
             >
-                <div class="md-layout-item md-size-95" v-for="(record, i) in filteredRecords.slice(this.offset, this.offset + 5)" :key="i">
+                <div class="md-layout-item md-size-95" v-for="(record, i) in records.filter(filters.video).slice(this.offset, this.offset + 5)" :key="i">
                     <div class="md-layout md-gutter md-alignment-center-center">
                         <div class="md-layout-item md-size-80" style="display: inline; float: left; padding: 0">
                             <span class="md-body-2 link" @click="openUrl(record.url)" style="cursor: pointer">{{ record.title }}</span>
@@ -68,7 +68,7 @@
                         </div>
                     </div>
                     <div class="md-layout md-gutter md-alignment-center-center"
-                        v-for="(match, i) in record.matches" :key="i"
+                        v-for="(match, i) in record.matches.filter(filters.match)" :key="i"
                         style="padding-bottom: 1%; border-bottom: 1px solid gray; margin-bottom: 1%"
                     >
                         <div class="md-layout-item md-size-35" style="padding-right: 0;">
@@ -125,7 +125,10 @@ export default {
             reason: 5,
             size: 5,
         },
-        filteredRecords: [],
+        filters: {
+            video: () => true,
+            match: () => true,
+        },
     }),
     computed: {
         cast() {
@@ -135,9 +138,8 @@ export default {
             return this.$store.state.records;
         }
     },
-    created() {
+    mounted() {
         this.$store.commit('toEdit', null);
-        this.filteredRecords = this.records;
     },
     methods: {
         openUrl(url) {
@@ -157,24 +159,18 @@ export default {
             this.$router.push({ name: 'edit' });
         },
         filter() {
-            let records = this.deepCopyFunction(
-                this.records.filter((record) => {
-                    const channel = this.channel ? record.channel.name === this.channel : true;
-                    const title = this.title ? record.title === this.title : true;
-                    return channel && title;
-                })
-            );
-            records.forEach((record) => {
-                record.matches = record.matches.filter((match) => {
-                    const p1Char = this.p1.char === 'any' ? true : match.p1.char === this.p1.char;
-                    const p2Char = this.p2.char === 'any' ? true : match.p2.char === this.p2.char;
-                    const p1Name = this.p1.name ? match.p1.name === this.p1.name : true;
-                    const p2Name = this.p2.name ? match.p2.name === this.p2.name : true;
-                    return p1Char && p2Char && p1Name && p2Name;
-                });
-            });
-            console.log(this.records);
-            this.filteredRecords = records;
+            this.filters.video = (record) => {
+                const channel = this.channel ? record.channel.name === this.channel : true;
+                const title = this.title ? record.title === this.title : true;
+                return channel && title;
+            }
+            this.filters.match = (match) => {
+                const p1Char = this.p1.char === 'any' ? true : match.p1.char === this.p1.char;
+                const p2Char = this.p2.char === 'any' ? true : match.p2.char === this.p2.char;
+                const p1Name = this.p1.name ? match.p1.name === this.p1.name : true;
+                const p2Name = this.p2.name ? match.p2.name === this.p2.name : true;
+                return p1Char && p2Char && p1Name && p2Name;
+            }
         },
         deepCopyFunction(inObject) {
             let outObject, value, key;

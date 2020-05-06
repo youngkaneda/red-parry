@@ -88,7 +88,7 @@
                 </div>
             </div>
             <div class="md-layout md-gutter md-alignment-top-center">
-                <div class="md-layout-item md-size-50" style="padding: 0">
+                <div class="md-layout-item md-size-50" style="padding: 0; margin-bottom: 1%">
                     <md-button class="md-raised" style="margin: 0 1% 0 0" @click="addMatch()">
                         <md-icon>playlist_add</md-icon>
                         ADD MATCH
@@ -216,6 +216,7 @@ export default {
                 this.clear();
                 return;
             }
+            record.createdAt = new Date();
             record.matches = this.matches;
             record.url = this.videoURL;
             record.date = this.videoInfo.snippet.publishedAt;
