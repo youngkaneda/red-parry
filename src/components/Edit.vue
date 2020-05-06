@@ -34,7 +34,7 @@
             <div class="md-layout md-gutter md-alignment-top-center">
                 <div class="md-layout-item md-size-50" style="padding: 0">
                     <div class="md-layout md-gutter md-alignment-top-center" v-for="(match, i) in matches" :key="i">
-                        <md-field class="md-layout-item md-size-15" style="padding-left: 0%; margin-right: 5%">
+                        <md-field class="md-layout-item md-size-15" style="padding-left: 0%; margin-right: 3%">
                             <label>timestamp URL</label>
                             <md-input v-model="match.timestamp"></md-input>
                         </md-field>
@@ -47,21 +47,22 @@
                                 <img :src="getCastImage(match.p1.char)" alt="" srcset="" md-menu-trigger>
                                 <md-menu-content>
                                     <md-menu-item v-for="(char, i) in cast" :key="i" @click="() => { match.p1.char = char }">
-                                        <div>
-                                            <img :src="getCastImage(char)" alt="" srcset="" class="md-layout-item md-size-45">
+                                        <div class="md-layout-item md-size-40">
+                                            <img :src="getCastImage(char)" alt="" srcset="">
                                             <span style="text-align: left; margin-left: 10px">{{ char }}</span>
                                         </div>
                                     </md-menu-item>
                                 </md-menu-content>
                             </md-menu>
                         </div>
+						<span style="margin-top: 2%">VS</span>
                         <div class="md-layout-item md-size-10" style="margin-top: 1%; padding-right: 0">
                             <md-menu md-direction="bottom-start" class="md-menu md-layout-item md-size-75">
                                 <img :src="getCastImage(match.p2.char)" alt="" srcset="" md-menu-trigger>
                                 <md-menu-content>
                                     <md-menu-item v-for="(char, i) in cast" :key="i" @click="() => { match.p2.char = char }">
-                                        <div>
-                                            <img :src="getCastImage(char)" alt="" srcset="" class="md-layout-item md-size-45">
+                                        <div class="md-layout-item md-size-40">
+                                            <img :src="getCastImage(char)" alt="" srcset="">
                                             <span style="text-align: left; margin-left: 10px">{{ char }}</span>
                                         </div>
                                     </md-menu-item>
