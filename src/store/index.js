@@ -13,6 +13,7 @@ export default new Vuex.Store({
             'chunli', 'makoto', '12', 'yang', 'ken', 'hugo', 'elena', 'dudley', 'oro', 'ryu',
         ],
         records: [],
+        edit: null,
     },
     mutations: {
         record(state, record) {
@@ -29,6 +30,12 @@ export default new Vuex.Store({
         },
     },
     actions: {
+        edit(context, obj) {
+            console.log('editing.');
+            // eslint-disable-next-line no-param-reassign
+            context.state.edit = obj;
+            console.log(context.state);
+        },
     },
     modules: {
     },
