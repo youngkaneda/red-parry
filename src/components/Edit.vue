@@ -223,7 +223,7 @@ export default {
                 record = this.edit;
                 record.matches = this.matches;
                 this.$store.commit('updateRecord', record);
-                this.$tore.commit('edit', null);
+                this.$store.commit('edit', null);
                 // clear page
                 this.$toast.success('Record updated successfully.');
                 this.clear();
