@@ -130,6 +130,9 @@ export default {
         // workaround
         toEdit() {
             return this.$store.state.toEdit;
+        },
+        recordsURL() {
+            return this.$store.state.records.map(el => el.url);
         }
     },
     watch: {
@@ -176,13 +179,17 @@ export default {
             if (this.videoURL ? !this.videoURL.match(regex) : false) {
                 this.videoURL = '';
                 this.videoInfo = null;
-                alert('Video URL invalid.');
+                this.$toast.error('Invalid URL.');
+                return;
+            }
+            if (this.recordsURL.indexOf(this.videoURL) !== -1 && !this.toEdit) {
+                this.$toast.warning('This video has already been saved.');
                 return;
             }
             const id = this.videoURL.split('?v=')[1];
             axios.get(`https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${id}&key=${props.apiKey}`, {
                 headers: {
-                    Authorization: 'Bearer ' + JSON.parse(security.decrypt(localStorage.getItem('g_auth'))).access_token,
+                    Authorization: 'Bearer ' + security.decrypt(localStorage.getItem('g_auth')).access_token,
                     Accept: 'application/json',
                 }
             }).then((response) => {

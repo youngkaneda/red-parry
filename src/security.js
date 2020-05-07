@@ -1,11 +1,15 @@
-const crypto = require('crypto-js');
+const jwt = require('jsonwebtoken');
 
-function encrypt(text) {
-    return crypto.AES.encrypt(text, process.env.VUE_APP_PASS).toString();
+function encrypt(data) {
+    return jwt.sign(data, process.env.VUE_APP_PASS);
 }
 
-function decrypt(text) {
-    return crypto.AES.decrypt(text, process.env.VUE_APP_PASS).toString(crypto.enc.Utf8);
+function decrypt(token) {
+    try {
+        return jwt.verify(token, process.env.VUE_APP_PASS);
+    } catch (err) {
+        return token;
+    }
 }
 
 export default {

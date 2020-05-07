@@ -27,14 +27,14 @@ export default {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
         }).then(response => {
-            localStorage.setItem('g_auth', security.encrypt(JSON.stringify(response.data)));
-            localStorage.setItem('refresh_token', security.encrypt(response.data.refresh_token));
+            localStorage.setItem('g_auth', security.encrypt(response.data));
+            localStorage.setItem('refresh', security.encrypt({token: response.data.refresh_token}));
             this.$router.push('/edit');
             setInterval(() => {
                 console.log('Refreshing token.');
                 const refreshReq = new URLSearchParams();
                 refreshReq.append('grant_type', 'refresh_token');
-                refreshReq.append('refresh_token', security.encrypt(localStorage.getItem('refresh_token')));
+                refreshReq.append('refresh_token', security.decrypt(localStorage.getItem('refresh')).token);
                 refreshReq.append('client_secret', props.clientSecret);
                 refreshReq.append('client_id', props.clientId);
 
@@ -43,7 +43,7 @@ export default {
                         'Content-Type': 'application/x-www-form-urlencoded',
                     },
                 }).then(response => {
-                    localStorage.setItem('g_auth', security.encrypt(JSON.stringify(response.data)));
+                    localStorage.setItem('g_auth', security.encrypt(response.data));
                 });
             }, 1000 * response.data.expires_in);
         });
