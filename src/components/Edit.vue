@@ -172,7 +172,7 @@ export default {
             window.location.replace(url);
         },
         search() {
-            if (this.authorized) {
+            if (!localStorage.getItem('g_auth')) {
                 return ;
             }
             let regex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/gi;
