@@ -158,7 +158,6 @@ export default {
         },
         editRecord(record) {
             localStorage.setItem('edit', JSON.stringify(record));
-            this.$store.commit('edit', record);
             this.$router.push({ name: 'edit' });
         },
         filter() {
