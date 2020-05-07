@@ -172,6 +172,9 @@ export default {
             window.location.replace(url);
         },
         search() {
+            if (!this.authorized) {
+                return ;
+            }
             let regex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/gi;
             if (this.videoURL ? !this.videoURL.match(regex) : false) {
                 this.videoURL = '';
