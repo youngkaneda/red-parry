@@ -13,8 +13,12 @@ export default new Vuex.Store({
             'chunli', 'makoto', '12', 'yang', 'ken', 'hugo', 'elena', 'dudley', 'oro', 'ryu',
         ],
         records: [],
+        edit: null,
     },
     mutations: {
+        edit(state, record) {
+            state.edit = record;
+        },
         record(state, record) {
             db.collection('records').add(record);
         },
