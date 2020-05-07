@@ -129,6 +129,9 @@ export default {
         },
         recordsURL() {
             return this.$store.state.records.map(el => el.url);
+        },
+        edit() {
+            return this.$store.state.edit;
         }
     },
     watch: {
@@ -141,8 +144,8 @@ export default {
         }
     },
     created() {
-        if (localStorage.getItem('edit')) {
-            let record = JSON.parse(localStorage.getItem('edit'));
+        if (this.edit) {
+            let record = this.edit;
             this.videoURL = record.url;
             this.search();
             this.matches = this.deepCopy(record.matches);
@@ -182,7 +185,7 @@ export default {
                 this.$toast.error('Invalid URL.');
                 return;
             }
-            if (this.recordsURL.indexOf(this.videoURL) !== -1 && !localStorage.getItem('edit')) {
+            if (this.recordsURL.indexOf(this.videoURL) !== -1 && !this.edit) {
                 this.$toast.warning('This video has already been saved.');
                 return;
             }
@@ -216,11 +219,11 @@ export default {
             });
             // save in firestore.
             let record = {};
-            if (localStorage.getItem('edit')) {
-                record = JSON.parse(localStorage.getItem('edit'));
+            if (this.edit) {
+                record = this.edit;
                 record.matches = this.matches;
                 this.$store.commit('updateRecord', record);
-                localStorage.removeItem('edit');
+                this.$tore.commit('edit', null);
                 // clear page
                 this.$toast.success('Record updated successfully.');
                 this.clear();
@@ -241,9 +244,9 @@ export default {
             this.clear();
         },
         remove() {
-            if (localStorage.getItem('edit')) {
-                this.$store.commit('removeRecord', JSON.parse(localStorage.getItem('edit')).id);
-                localStorage.removeItem('edit');
+            if (this.edit) {
+                this.$store.commit('removeRecord', this.edit.id);
+                this.$store.commit('edit', null);
             }
             this.$toast.success('Record removed successfully.');
             this.clear();

@@ -157,8 +157,8 @@ export default {
             this.offset = this.pagination.reason * val;
         },
         editRecord(record) {
-            localStorage.setItem('edit', JSON.stringify(record));
-            // this.$store.commit('edit', record);
+            // localStorage.setItem('edit', JSON.stringify(record));
+            this.$store.commit('edit', record);
             this.$router.push({ name: 'edit' });
         },
         filter() {
