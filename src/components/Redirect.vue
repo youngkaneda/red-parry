@@ -30,6 +30,7 @@ export default {
             localStorage.setItem('g_auth', security.encrypt(response.data));
             localStorage.setItem('refresh', security.encrypt({token: response.data.refresh_token}));
             this.$router.push('/edit');
+            console.log(localStorage.getItem('edit'));
             setInterval(() => {
                 console.log('Refreshing token.');
                 const refreshReq = new URLSearchParams();

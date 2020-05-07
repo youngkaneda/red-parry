@@ -213,11 +213,11 @@ export default {
             });
             // save in firestore.
             let record = {};
-            if (this.toEdit) {
-                record = this.toEdit;
+            if (localStorage.getItem('edit')) {
+                record = JSON.parse(localStorage.getItem('edit'));
                 record.matches = this.matches;
                 this.$store.commit('updateRecord', record);
-                this.$store.commit('toEdit', null);
+                localStorage.removeItem('edit');
                 // clear page
                 this.$toast.success('Record updated successfully.');
                 this.clear();
@@ -238,9 +238,9 @@ export default {
             this.clear();
         },
         remove() {
-            if (this.toEdit) {
-                this.$store.commit('removeRecord', this.toEdit.id);
-                this.$store.commit('toEdit', null);
+            if (localStorage.getItem('edit')) {
+                this.$store.commit('removeRecord', JSON.parse(localStorage.getItem('edit')).id);
+                localStorage.removeItem('edit');
             }
             this.$toast.success('Record removed successfully.');
             this.clear();
