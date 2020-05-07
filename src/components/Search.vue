@@ -160,7 +160,7 @@ export default {
             localStorage.setItem('edit', JSON.stringify(record));
             setTimeout(() => {
                 this.$router.push({ name: 'edit' });
-            }, 1000);
+            }, 500);
         },
         filter() {
             this.filters.video = (record) => {
