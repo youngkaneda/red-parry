@@ -158,7 +158,7 @@ export default {
         },
         editRecord(record) {
             localStorage.setItem('edit', JSON.stringify(record));
-            this.$router.push('/edit');
+            this.$router.push({ name: 'edit' });
         },
         filter() {
             this.filters.video = (record) => {
