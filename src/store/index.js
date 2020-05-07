@@ -12,7 +12,6 @@ export default new Vuex.Store({
             'any', 'alex', 'sean', 'ibuki', 'necro', 'urien', 'gouki', 'yun', 'remy', 'q',
             'chunli', 'makoto', '12', 'yang', 'ken', 'hugo', 'elena', 'dudley', 'oro', 'ryu',
         ],
-        toEdit: null,
         records: [],
     },
     mutations: {
@@ -21,9 +20,6 @@ export default new Vuex.Store({
         },
         records(state, records) {
             state.records = records;
-        },
-        toEdit(state, record) {
-            state.toEdit = record;
         },
         updateRecord(state, record) {
             db.collection('records').doc(record.id).set(record);

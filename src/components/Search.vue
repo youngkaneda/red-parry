@@ -141,7 +141,7 @@ export default {
         }
     },
     mounted() {
-        this.$store.commit('toEdit', null);
+        localStorage.removeItem('edit');
     },
     methods: {
         openUrl(url) {
@@ -157,7 +157,7 @@ export default {
             this.offset = this.pagination.reason * val;
         },
         editRecord(record) {
-            this.$store.commit('toEdit', record);
+            localStorage.setItem('edit', JSON.stringify(record));
             this.$router.push({ name: 'edit' });
         },
         filter() {
