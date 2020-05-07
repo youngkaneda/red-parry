@@ -29,9 +29,7 @@ export default new Vuex.Store({
             db.collection('records').doc(docId).delete();
         },
         edit(state, obj) {
-            console.log('editing');
             state.edit = obj;
-            console.log(state);
         },
     },
     actions: {
