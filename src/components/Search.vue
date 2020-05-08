@@ -54,7 +54,10 @@
             <div class="md-layout md-gutter md-alignment-center-center"
                 style="margin-top: 1%"
             >
-                <div class="md-layout-item md-size-95" v-for="(record, i) in records.filter(filters.video).slice(this.offset, this.offset + 5)" :key="i">
+                <div class="md-layout-item md-size-95"
+                    v-for="(record, i) in records.filter(filters.compose(filters.video, filters.hasMatches(filters.match))).slice(this.offset, this.offset + 5)"
+                    :key="i"
+                >
                     <div class="md-layout md-gutter md-alignment-center-center">
                         <div class="md-layout-item md-size-80" style="display: inline; float: left; padding: 0">
                             <span class="md-body-2 link" @click="openUrl(record.url)" style="cursor: pointer">{{ record.title }}</span>
@@ -93,7 +96,9 @@
                 </div>
             </div>
             <div class="md-layout md-gutter md-alignment-center-center" style="margin-bottom: 1%">
-                <Pagination :total="records.length" :reason="pagination.reason" :size="pagination.size" @pageChanged="updateDataTable"/>
+                <Pagination :total="records.filter(filters.video).filter(filters.hasMatches(filters.match)).length"
+                    :reason="pagination.reason" :size="pagination.size" @pageChanged="updateDataTable"
+                />
             </div>
         </div>
     </div>
@@ -128,6 +133,14 @@ export default {
         filters: {
             video: () => true,
             match: () => true,
+            hasMatches: (filter) => (record) => record.matches.filter(filter).length > 0,
+            compose: (...filters) => (element) => {
+                let partial = true;
+                filters.forEach(filter => {
+                    partial = partial && filter(element);
+                })
+                return partial;
+            },
         },
     }),
     computed: {
@@ -162,15 +175,15 @@ export default {
         },
         filter() {
             this.filters.video = (record) => {
-                const channel = this.channel ? record.channel.name === this.channel : true;
-                const title = this.title ? record.title === this.title : true;
+                const channel = this.channel ? record.channel.name.toLowerCase() === this.channel.toLowerCase() : true;
+                const title = this.title ? record.title.toLowerCase() === this.title.toLowerCase() : true;
                 return channel && title;
             }
             this.filters.match = (match) => {
                 const p1Char = this.p1.char === 'any' ? true : match.p1.char === this.p1.char;
                 const p2Char = this.p2.char === 'any' ? true : match.p2.char === this.p2.char;
-                const p1Name = this.p1.name ? match.p1.name === this.p1.name : true;
-                const p2Name = this.p2.name ? match.p2.name === this.p2.name : true;
+                const p1Name = this.p1.name ? match.p1.name.toLowerCase() === this.p1.name.toLowerCase() : true;
+                const p2Name = this.p2.name ? match.p2.name.toLowerCase() === this.p2.name.toLowerCase() : true;
                 return p1Char && p2Char && p1Name && p2Name;
             }
         },
