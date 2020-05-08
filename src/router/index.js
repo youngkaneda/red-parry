@@ -4,6 +4,7 @@ import Home from '../views/Home.vue';
 import Search from '../components/Search.vue';
 import Edit from '../components/Edit.vue';
 import Redirect from '../components/Redirect.vue';
+import Policy from '../components/Policy.vue';
 
 Vue.use(VueRouter);
 
@@ -16,6 +17,7 @@ const routes = [
             { path: '', component: Search },
             { path: 'edit/', name: 'edit', component: Edit },
             { path: 'redirect/', name: 'redirect', component: Redirect },
+            { path: 'policy/', name: 'policy', component: Policy },
         ],
     },
 ];
