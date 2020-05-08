@@ -172,7 +172,7 @@ export default {
                 `scope=${props.scopes}&` +
                 `redirect_uri=${props.redirectURI}&` +
                 'access_type=offline'
-            window.location.replace(url, '_blank');
+            window.location.replace(url);
         },
         search() {
             if (!localStorage.getItem('g_auth')) {

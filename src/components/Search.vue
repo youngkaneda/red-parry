@@ -170,6 +170,7 @@ export default {
             this.offset = this.pagination.reason * val;
         },
         editRecord(record) {
+            localStorage.setItem('edit', record);
             this.$store.commit('edit', record);
             this.$router.push({ name: 'edit' });
         },
