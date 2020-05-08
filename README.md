@@ -34,6 +34,9 @@ A lot of games has a database of matches form them, Skullgirls, Melty blood... I
 
 ## Screenshots
 
+![home](./img/ss_home.png)
+![edit](./img/ss_edit.png)
+
 ## TODO
 
 1. Make the webapp responsive.
