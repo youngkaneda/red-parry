@@ -125,7 +125,9 @@ export default {
     },
     computed: {
         cast() {
-            return this.$store.state.cast;
+            let cast = this.$store.state.cast;
+            cast.sort((a, b) => a < b ? -1 : 1);
+            return cast;
         },
         recordsURL() {
             return this.$store.state.records.map(el => el.url);

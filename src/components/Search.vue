@@ -145,7 +145,9 @@ export default {
     }),
     computed: {
         cast() {
-            return this.$store.state.cast;
+            let cast = this.$store.state.cast;
+            cast.sort((a, b) => a < b ? -1 : 1);
+            return cast;
         },
         records() {
             let records = this.$store.state.records;
@@ -170,9 +172,9 @@ export default {
             this.offset = this.pagination.reason * val;
         },
         editRecord(record) {
-            localStorage.setItem('edit', record);
+            localStorage.setItem('edit', JSON.stringify(record));
             this.$store.commit('edit', record);
-            this.$router.push({ name: 'edit' });
+            setTimeout(() => { this.$router.push({ name: 'edit' }) }, 380);
         },
         filter() {
             this.filters.video = (record) => {

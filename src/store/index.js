@@ -32,8 +32,6 @@ export default new Vuex.Store({
             state.edit = obj;
         },
     },
-    actions: {
-    },
     modules: {
     },
 });
