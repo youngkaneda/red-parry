@@ -9,6 +9,14 @@
         >
             <md-icon>chevron_left</md-icon>
         </md-button>
+        <md-button
+            v-if="this.limit > this.size"
+            class="md-icon-button"
+            style="color: white"
+            disabled
+        >
+            ...
+        </md-button>
         <div v-for="(v, i) in pages()" style="display: inline" :key="i">
             <md-button
                 :class="[page === i ? 'md-raised' : null, 'md-icon-button']"
@@ -18,6 +26,14 @@
                 {{ i + 1 }}
             </md-button>
         </div>
+        <md-button
+            v-if="this.limit < this.pages()"
+            class="md-icon-button"
+            disabled
+            style="color: white"
+        >
+            ...
+        </md-button>
         <md-button
             class="md-icon-button"
             @click="next()"
@@ -75,11 +91,13 @@ export default {
                 this.limit++;
                 this.offset++;
             }
+            console.log(this.offset, this.size);
         },
         lastPage() {
             this.page = this.pages() - 1;
             this.limit = this.pages();
             this.offset = this.page + 1 - this.size;
+            console.log(this.page, this.limit, this.offset, this.total);
         },
         pages() {
             let pages = Math.floor(this.total/this.reason);
