@@ -10,12 +10,12 @@
             <md-icon>chevron_left</md-icon>
         </md-button>
         <md-button
-            v-if="this.limit > this.size"
+            v-if="limit > size"
             class="md-icon-button"
             style="color: white"
-            disabled
+            @click="previous()"
         >
-            ...
+            {{ page &lt; 2 ? 1 : '...' }}
         </md-button>
         <div v-for="(v, i) in pages()" style="display: inline" :key="i">
             <md-button
@@ -27,12 +27,21 @@
             </md-button>
         </div>
         <md-button
-            v-if="this.limit < this.pages()"
+            v-if="limit < pages()"
             class="md-icon-button"
-            disabled
+            :disabled="limit + 1 === pages()"
+            @click="next()"
             style="color: white"
         >
-            ...
+            {{ limit + 1 === pages() ? pages() : '...' }}
+        </md-button>
+        <md-button
+            v-if="limit + 1 < pages()"
+            class="md-icon-button"
+            @click="lastPage()"
+            style="color: white"
+        >
+            {{ this.pages() }}
         </md-button>
         <md-button
             class="md-icon-button"
@@ -91,13 +100,11 @@ export default {
                 this.limit++;
                 this.offset++;
             }
-            console.log(this.offset, this.size);
         },
         lastPage() {
             this.page = this.pages() - 1;
             this.limit = this.pages();
             this.offset = this.page + 1 - this.size;
-            console.log(this.page, this.limit, this.offset, this.total);
         },
         pages() {
             let pages = Math.floor(this.total/this.reason);

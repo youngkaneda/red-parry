@@ -202,7 +202,7 @@ export default {
             }
             return outObject;
         },
-    }
+    },
 }
 </script>
 
