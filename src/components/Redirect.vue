@@ -9,6 +9,8 @@ export default {
     created() {
         const params = new URLSearchParams(window.location.search);
 
+        console.log(this.$store.state.edit);
+
         if (!params.get('code')) {
             this.$router.push('/');
         }
