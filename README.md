@@ -24,7 +24,7 @@ I used firebase and youtube google api, if you want to fork and code, you'll nee
 1. Filter the registered records and matches by:
     * Player 1 and Player 2 names.
     * Payler 1 and Player 2 characters.
-    * Youtube video Title.
+    * Youtube video title.
     * Youtube video channel.
 2. You can save, edit, and remove records and their matches.
 
