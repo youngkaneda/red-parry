@@ -29,7 +29,7 @@
         <md-button
             v-if="limit < pages()"
             class="md-icon-button"
-            :disabled="limit + 1 === pages()"
+            :disabled="limit + 1 !== pages()"
             @click="next()"
             style="color: white"
         >

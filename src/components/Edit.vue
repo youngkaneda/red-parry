@@ -174,7 +174,9 @@ export default {
                 `scope=${props.scopes}&` +
                 `redirect_uri=${props.redirectURI}&` +
                 'access_type=offline'
-            window.location.replace(url);
+            setTimeout(() => {
+                window.location.replace(url);
+            }, 100);
         },
         search() {
             if (!localStorage.getItem('g_auth')) {
