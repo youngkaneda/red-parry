@@ -157,6 +157,7 @@ export default {
     },
     mounted() {
         localStorage.removeItem('edit');
+        console.log('?');
     },
     methods: {
         openUrl(url) {
@@ -172,9 +173,7 @@ export default {
             this.offset = this.pagination.reason * val;
         },
         editRecord(record) {
-            localStorage.setItem('edit', JSON.stringify(record));
-            this.$store.commit('edit', record);
-            setTimeout(() => { this.$router.push({ name: 'edit' }) }, 380);
+            this.$router.push({ name: 'edit', params: { edit: record } });
         },
         filter() {
             this.filters.video = (record) => {

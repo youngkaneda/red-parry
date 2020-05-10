@@ -146,15 +146,19 @@ export default {
         }
     },
     created() {
+        if (this.$route.params.edit) {
+            this.$store.commit('edit', this.$route.params.edit);
+            localStorage.setItem('edit', JSON.stringify(this.$route.params.edit));
+        }
+    },
+    mounted() {
+        this.authorized = !localStorage.getItem('g_auth');
         if (this.edit) {
             let record = this.edit;
             this.videoURL = record.url;
             this.search();
             this.matches = this.deepCopy(record.matches);
         }
-    },
-    mounted() {
-        this.authorized = !localStorage.getItem('g_auth');
     },
     methods: {
         openSnackbar(message) {
