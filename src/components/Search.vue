@@ -157,7 +157,6 @@ export default {
     },
     mounted() {
         localStorage.removeItem('edit');
-        console.log('?');
     },
     methods: {
         openUrl(url) {
