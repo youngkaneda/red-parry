@@ -15,13 +15,13 @@
                         </md-menu-content>
                     </md-menu>
                 </div>
-                <!-- <md-field class="md-layout-item md-size-85" style="padding-left: 0%">
+                <md-field class="md-layout-item md-size-85" style="padding-left: 0%">
                     <label>P1 Name</label>
                     <md-input v-model="p1.name" @keyup="filter()"></md-input>
-                </md-field> -->
-                <md-autocomplete v-model="p1.name" :md-options="players" @md-changed="filter()" class="md-layout-item md-size-85" style="padding-left: 0%">
+                </md-field>
+                <!-- <md-autocomplete v-model="p1.name" :md-options="players" @md-changed="filter()" class="md-layout-item md-size-85" style="padding-left: 0%">
                     <label>P1 Name</label>
-                </md-autocomplete>
+                </md-autocomplete> -->
             </div>
             <div class="md-layout md-gutter md-alignment-top-center">
                 <div class="md-layout-item md-size-10" style="margin-top: 1.5%; padding-left: 0">
@@ -37,22 +37,22 @@
                         </md-menu-content>
                     </md-menu>
                 </div>
-                <!-- <md-field class="md-layout-item md-size-85" style="padding-left: 0%">
+                <md-field class="md-layout-item md-size-85" style="padding-left: 0%">
                     <label>P2 Name</label>
                     <md-input v-model="p2.name" @keyup="filter()"></md-input>
-                </md-field> -->
-                <md-autocomplete v-model="p2.name" :md-options="players" @md-changed="filter()" class="md-layout-item md-size-85" style="padding-left: 0%">
+                </md-field>
+                <!-- <md-autocomplete v-model="p2.name" :md-options="players" @md-changed="filter()" class="md-layout-item md-size-85" style="padding-left: 0%">
                     <label>P2 Name</label>
-                </md-autocomplete>
+                </md-autocomplete> -->
             </div>
             <div class="md-layout md-gutter md-alignment-center-center">
-                <!-- <md-field class="md-layout-item md-size-95" style="padding-left: 0%">
+                <md-field class="md-layout-item md-size-95" style="padding-left: 0%">
                     <label>Channel</label>
                     <md-input v-model="channel" @keyup="filter()"></md-input>
-                </md-field> -->
-                <md-autocomplete v-model="channel" :md-options="channels" @md-changed="filter()" class="md-layout-item md-size-95" style="padding-left: 0%">
+                </md-field>
+                <!-- <md-autocomplete v-model="channel" :md-options="channels" @md-changed="filter()" class="md-layout-item md-size-95" style="padding-left: 0%">
                     <label>Channel</label>
-                </md-autocomplete>
+                </md-autocomplete> -->
             </div>
             <div class="md-layout md-gutter md-alignment-center-center">
                 <md-field class="md-layout-item md-size-95" style="padding-left: 0%">
@@ -151,8 +151,6 @@ export default {
                 return partial;
             },
         },
-        players: [],
-        channels: [],
     }),
     computed: {
         cast() {
@@ -168,24 +166,6 @@ export default {
     },
     mounted() {
         localStorage.removeItem('edit');
-        //
-        this.records.forEach(record => {
-            if (this.channels.indexOf(record.channel.name) === -1) {
-                this.channels.push(record.channel.name);
-            }
-        });
-        this.records.forEach(record => {
-            record.matches.forEach(match => {
-                if (this.players.indexOf(match.p1.name) === -1) {
-                    this.players.push(match.p1.name);
-                }
-                if (this.players.indexOf(match.p2.name) === -1) {
-                    this.players.push(match.p2.name);
-                }
-            });
-        });
-        this.players.sort((a, b) => a < b ? -1 : 1);
-        this.channels.sort((a, b) => a < b ? -1 : 1);
     },
     methods: {
         openUrl(url) {
@@ -252,8 +232,5 @@ export default {
 }
 .md-menu-content {
     width: 100%;
-}
-.md-menu {
-    padding-right: 1%;
 }
 </style>
