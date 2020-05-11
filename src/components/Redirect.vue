@@ -8,7 +8,9 @@ import security from '../security';
 export default {
     created() {
         const params = new URLSearchParams(window.location.search);
-
+        // workaround to not lose this value in store when redirect occurs.
+        console.log(this.$store.state.edit);
+        //
         if (!params.get('code')) {
             this.$router.push('/');
         }

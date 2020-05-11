@@ -15,10 +15,13 @@
                         </md-menu-content>
                     </md-menu>
                 </div>
-                <md-field class="md-layout-item md-size-85" style="padding-left: 0%">
+                <!-- <md-field class="md-layout-item md-size-85" style="padding-left: 0%">
                     <label>P1 Name</label>
                     <md-input v-model="p1.name" @keyup="filter()"></md-input>
-                </md-field>
+                </md-field> -->
+                <md-autocomplete v-model="p1.name" :md-options="players" @md-changed="filter()" class="md-layout-item md-size-85" style="padding-left: 0%">
+                    <label>P1 Name</label>
+                </md-autocomplete>
             </div>
             <div class="md-layout md-gutter md-alignment-top-center">
                 <div class="md-layout-item md-size-10" style="margin-top: 1.5%; padding-left: 0">
@@ -34,16 +37,22 @@
                         </md-menu-content>
                     </md-menu>
                 </div>
-                <md-field class="md-layout-item md-size-85" style="padding-left: 0%">
+                <!-- <md-field class="md-layout-item md-size-85" style="padding-left: 0%">
                     <label>P2 Name</label>
                     <md-input v-model="p2.name" @keyup="filter()"></md-input>
-                </md-field>
+                </md-field> -->
+                <md-autocomplete v-model="p2.name" :md-options="players" @md-changed="filter()" class="md-layout-item md-size-85" style="padding-left: 0%">
+                    <label>P2 Name</label>
+                </md-autocomplete>
             </div>
             <div class="md-layout md-gutter md-alignment-center-center">
-                <md-field class="md-layout-item md-size-95" style="padding-left: 0%">
+                <!-- <md-field class="md-layout-item md-size-95" style="padding-left: 0%">
                     <label>Channel</label>
                     <md-input v-model="channel" @keyup="filter()"></md-input>
-                </md-field>
+                </md-field> -->
+                <md-autocomplete v-model="channel" :md-options="channels" @md-changed="filter()" class="md-layout-item md-size-95" style="padding-left: 0%">
+                    <label>Channel</label>
+                </md-autocomplete>
             </div>
             <div class="md-layout md-gutter md-alignment-center-center">
                 <md-field class="md-layout-item md-size-95" style="padding-left: 0%">
@@ -142,6 +151,8 @@ export default {
                 return partial;
             },
         },
+        players: [],
+        channels: [],
     }),
     computed: {
         cast() {
@@ -157,6 +168,24 @@ export default {
     },
     mounted() {
         localStorage.removeItem('edit');
+        //
+        this.records.forEach(record => {
+            if (this.channels.indexOf(record.channel.name) === -1) {
+                this.channels.push(record.channel.name);
+            }
+        });
+        this.records.forEach(record => {
+            record.matches.forEach(match => {
+                if (this.players.indexOf(match.p1.name) === -1) {
+                    this.players.push(match.p1.name);
+                }
+                if (this.players.indexOf(match.p2.name) === -1) {
+                    this.players.push(match.p2.name);
+                }
+            });
+        });
+        this.players.sort((a, b) => a < b ? -1 : 1);
+        this.channels.sort((a, b) => a < b ? -1 : 1);
     },
     methods: {
         openUrl(url) {
@@ -176,15 +205,15 @@ export default {
         },
         filter() {
             this.filters.video = (record) => {
-                const channel = this.channel ? record.channel.name.toLowerCase() === this.channel.toLowerCase() : true;
-                const title = this.title ? record.title.toLowerCase() === this.title.toLowerCase() : true;
+                const channel = this.channel ? record.channel.name.toLowerCase().includes(this.channel.toLowerCase()) : true;
+                const title = this.title ? record.title.toLowerCase().includes(this.title.toLowerCase()) : true;
                 return channel && title;
             }
             this.filters.match = (match) => {
                 const p1Char = this.p1.char === 'any' ? true : match.p1.char === this.p1.char;
                 const p2Char = this.p2.char === 'any' ? true : match.p2.char === this.p2.char;
-                const p1Name = this.p1.name ? match.p1.name.toLowerCase() === this.p1.name.toLowerCase() : true;
-                const p2Name = this.p2.name ? match.p2.name.toLowerCase() === this.p2.name.toLowerCase() : true;
+                const p1Name = this.p1.name ? match.p1.name.toLowerCase().includes(this.p1.name.toLowerCase()) : true;
+                const p2Name = this.p2.name ? match.p2.name.toLowerCase().includes(this.p2.name.toLowerCase()) : true;
                 return p1Char && p2Char && p1Name && p2Name;
             }
         },
@@ -220,5 +249,11 @@ export default {
 }
 .link:hover {
     color: #797979;
+}
+.md-menu-content {
+    width: 100%;
+}
+.md-menu {
+    padding-right: 1%;
 }
 </style>
