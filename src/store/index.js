@@ -16,11 +16,11 @@ export default new Vuex.Store({
         edit: null,
     },
     mutations: {
-        record(state, record) {
-            db.collection('records').add(record);
-        },
         records(state, records) {
             state.records = records;
+        },
+        record(state, record) {
+            db.collection('records').add(record);
         },
         updateRecord(state, record) {
             db.collection('records').doc(record.id).set(record);

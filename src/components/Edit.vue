@@ -42,11 +42,6 @@
                             <label>Player1</label>
                             <md-input v-model="match.p1.name"></md-input>
                         </md-field>
-                        <!-- <md-autocomplete v-model="match.p1.name" :md-options="players"
-                            class="md-layout-item md-size-15" style="padding-left: 0%"
-                        >
-                            <label>Player1</label>
-                        </md-autocomplete> -->
                         <div class="md-layout-item md-size-10" style="margin-top: 1%; padding-right: 0">
                             <md-menu md-direction="bottom-start" class="md-menu md-layout-item md-size-75">
                                 <img :src="getCastImage(match.p1.char)" alt="" srcset="" md-menu-trigger>
@@ -74,15 +69,10 @@
                                 </md-menu-content>
                             </md-menu>
                         </div>
-                        <!-- <md-field class="md-layout-item md-size-15" style="padding-left: 0%">
+                        <md-field class="md-layout-item md-size-15" style="padding-left: 0%">
                             <label>Player2</label>
                             <md-input v-model="match.p2.name"></md-input>
-                        </md-field> -->
-                        <md-autocomplete v-model="match.p2.name" :md-options="players"
-                            class="md-layout-item md-size-15" style="padding-left: 0%"
-                        >
-                            <label>Player2</label>
-                        </md-autocomplete>
+                        </md-field>
                         <div class="md-layout-item md-size-25" style="margin-top: 0.7%;">
                             <md-button class="md-icon-button" size="sm" @click="duplicate(i)">
                                 <md-icon>file_copy</md-icon>
@@ -122,7 +112,6 @@ import axios from 'axios';
 import moment from 'moment';
 import props from '../../props';
 import security from '../security';
-import { v4 as uuidv4 } from 'uuid';
 
 export default {
     data() {
@@ -131,7 +120,6 @@ export default {
             videoInfo: null,
             matches: [],
             authorized: false,
-            players: [],
         }
     },
     computed: {
@@ -145,7 +133,7 @@ export default {
         },
         edit() {
             return this.$store.state.edit;
-        }
+        },
     },
     watch: {
         videoURL(val) {
