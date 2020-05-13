@@ -72,6 +72,13 @@ export default {
     created() {
         this.limit = this.size;
     },
+    beforeUpdate() {
+        if (this.page + 1 > this.pages()) {
+            this.page = 0;
+            this.limit = this.size;
+            this.offset = 0;
+        }
+    },
     watch: {
         page(val) {
             this.$emit('pageChanged', val);
