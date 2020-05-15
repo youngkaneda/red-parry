@@ -2,6 +2,10 @@
 
 This is a webapp created to mantain a database of top players/casual matches for the community of Street Fighter III: 3rd Strike.
 
+![home](./img/logo.png)
+
+#### logo designed by: wgclassen@gmail.com
+
 https://redparry.herokuapp.com
 
 ## Instalation
