@@ -145,7 +145,7 @@ export default {
     }),
     computed: {
         cast() {
-            let cast = this.deepCopyFunction(this.$store.state.cast);
+            let cast = this.deepCopy(this.$store.state.cast);
             cast.splice(cast.indexOf('any'), 1);
             cast.sort();
             cast.splice(0, 0, 'any');
@@ -191,7 +191,7 @@ export default {
                 return p1Char && p2Char && p1Name && p2Name;
             }
         },
-        deepCopyFunction(inObject) {
+        deepCopy(inObject) {
             let outObject, value, key;
             if (typeof inObject !== "object" || inObject === null) {
                 return inObject;
@@ -199,7 +199,7 @@ export default {
             outObject = Array.isArray(inObject) ? [] : {};
             for (key in inObject) {
                 value = inObject[key];
-                outObject[key] = this.deepCopyFunction(value);
+                outObject[key] = this.deepCopy(value);
             }
             return outObject;
         },

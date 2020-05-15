@@ -124,7 +124,7 @@ export default {
     },
     computed: {
         cast() {
-            let cast = this.deepCopyFunction(this.$store.state.cast);
+            let cast = this.deepCopy(this.$store.state.cast);
             cast.splice(cast.indexOf('any'), 1);
             cast.sort();
             return cast;
