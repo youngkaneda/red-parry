@@ -127,6 +127,7 @@ export default {
             let cast = this.deepCopy(this.$store.state.cast);
             cast.splice(cast.indexOf('any'), 1);
             cast.sort();
+            cast.splice(0, 0, 'any');
             return cast;
         },
         recordsURL() {
