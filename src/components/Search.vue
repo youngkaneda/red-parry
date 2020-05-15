@@ -145,9 +145,9 @@ export default {
     }),
     computed: {
         cast() {
-            let cast = this.$store.state.cast;
-            cast = cast.slice(cast.indexOf('any') + 1);
-            cast.sort((a, b) => a < b ? -1 : 1);
+            let cast = this.deepCopyFunction(this.$store.state.cast);
+            cast.splice(cast.indexOf('any'), 1);
+            cast.sort();
             cast.splice(0, 0, 'any');
             return cast;
         },

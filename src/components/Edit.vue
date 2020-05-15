@@ -124,8 +124,9 @@ export default {
     },
     computed: {
         cast() {
-            let cast = this.$store.state.cast;
-            cast.sort((a, b) => a < b ? -1 : 1);
+            let cast = this.deepCopyFunction(this.$store.state.cast);
+            cast.splice(cast.indexOf('any'), 1);
+            cast.sort();
             return cast;
         },
         recordsURL() {

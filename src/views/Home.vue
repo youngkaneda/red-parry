@@ -19,19 +19,6 @@
 <script>
 export default {
     name: "Home",
-    computed: {
-        cast() {
-            return this.$store.state.cast;
-        },
-    },
-    methods: {
-        getCastImage(char) {
-            if (this.cast.indexOf(char) === -1) {
-                return null;
-            }
-            return require('../assets/cast/' + char + '.gif');
-        },
-    }
 };
 </script>
 
