@@ -44,6 +44,7 @@ A lot of games has a database of matches form them, Skullgirls, Melty blood... I
 ## TODO
 
 1. Make the webapp responsive.
+2. Add autocomplete for the inputs, with a strategie that does not compromise performance.
 
 ---
 
