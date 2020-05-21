@@ -11,7 +11,7 @@ https://redparry.herokuapp.com
 ## Instalation
 
 ```
-git clone https://github.com/youngkaneda/red_parry
+git clone https://github.com/kanedatc/red_parry
 cd red_parry
 npm install
 npm run serve
