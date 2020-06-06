@@ -221,6 +221,10 @@ export default {
             });
         },
         save() {
+            if (this.matches.length === 0) {
+                this.$toast.error('Add at least one match.');
+                return;
+            }
             this.matches.forEach((match) => {
                 match.p1.name = match.p1.name ? match.p1.name : 'Unknow Player';
                 match.p2.name = match.p2.name ? match.p2.name : 'Unknow Player';
