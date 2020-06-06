@@ -120,7 +120,7 @@ export default {
             videoInfo: null,
             matches: [],
             authorized: false,
-        }
+        };
     },
     computed: {
         cast() {

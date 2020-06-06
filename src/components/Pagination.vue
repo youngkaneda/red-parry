@@ -13,7 +13,10 @@
             v-if="limit > size"
             class="md-icon-button"
             style="color: white"
-            @click="previous()"
+            @click="() => {
+                if (page < 2)
+                    previous();
+            }"
         >
             {{ page &lt; 2 ? 1 : '...' }}
         </md-button>
