@@ -13,10 +13,8 @@
             v-if="limit > size"
             class="md-icon-button"
             style="color: white"
-            @click="() => {
-                if (page < 2)
-                    previous();
-            }"
+            :disabled="page > 2"
+            @click="previous()"
         >
             {{ page &lt; 2 ? 1 : '...' }}
         </md-button>
