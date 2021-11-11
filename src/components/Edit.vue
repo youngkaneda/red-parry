@@ -59,8 +59,8 @@
                                         <label>Player1</label>
                                         <md-input v-model="match.p1.name"></md-input>
                                     </md-field>
-                                    <div style="margin-top: 1%; padding-right: 0;">
-                                        <md-menu md-direction="bottom-start" style="width: 71px !important">
+                                    <div style="margin-top: 1%; padding-right: 0; width: 71px !important">
+                                        <md-menu md-direction="bottom-start">
                                             <img :src="getCastImage(match.p1.char)" alt="" srcset="" md-menu-trigger>
                                             <md-menu-content>
                                                 <md-menu-item v-for="(char, i) in cast" :key="i" @click="() => { match.p1.char = char }">
@@ -74,8 +74,8 @@
                                     <div style="align-self: center">
                                         <span style="margin-top: 2%">VS</span>
                                     </div>
-                                    <div style="margin-top: 1%; padding-left: 1%; flex-grow: 0">
-                                        <md-menu md-direction="bottom-start" style="width: 71px !important">
+                                    <div style="margin-top: 1%; padding-left: 1%; flex-grow: 0; width: 71px !important">
+                                        <md-menu md-direction="bottom-start">
                                             <img :src="getCastImage(match.p2.char)" alt="" srcset="" md-menu-trigger>
                                             <md-menu-content>
                                                 <md-menu-item v-for="(char, i) in cast" :key="i" @click="() => { match.p2.char = char }">
