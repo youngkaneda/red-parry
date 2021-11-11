@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="margin-left: 15px">
         <h1>Privacy Policy</h1>
 
         <p>Last updated: May 08, 2020</p>

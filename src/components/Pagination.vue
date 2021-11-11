@@ -1,17 +1,13 @@
 <template>
     <div>
-        <md-button class="md-icon-button" @click="firstPage()">
+        <md-button @click="firstPage()">
             <md-icon>first_page</md-icon>
         </md-button>
-        <md-button
-            class="md-icon-button"
-            @click="previous()"
-        >
+        <md-button @click="previous()">
             <md-icon>chevron_left</md-icon>
         </md-button>
         <md-button
             v-if="limit > size"
-            class="md-icon-button"
             style="color: white"
             :disabled="page > 2"
             @click="previous()"
@@ -20,7 +16,7 @@
         </md-button>
         <div v-for="(v, i) in pages()" style="display: inline" :key="i">
             <md-button
-                :class="[page === i ? 'md-raised' : null, 'md-icon-button']"
+                :class="[page === i ? 'md-raised' : null]"
                 v-if="i < limit && i >= offset"
                 @click="() => { page = i }"
             >
@@ -29,7 +25,6 @@
         </div>
         <md-button
             v-if="limit < pages()"
-            class="md-icon-button"
             :disabled="limit + 1 !== pages()"
             @click="next()"
             style="color: white"
@@ -38,19 +33,15 @@
         </md-button>
         <md-button
             v-if="limit + 1 < pages()"
-            class="md-icon-button"
             @click="lastPage()"
             style="color: white"
         >
             {{ this.pages() }}
         </md-button>
-        <md-button
-            class="md-icon-button"
-            @click="next()"
-        >
+        <md-button @click="next()">
             <md-icon>chevron_right</md-icon>
         </md-button>
-        <md-button class="md-icon-button" @click="lastPage()">
+        <md-button @click="lastPage()">
             <md-icon>last_page</md-icon>
         </md-button>
     </div>
@@ -122,3 +113,18 @@ export default {
     }
 }
 </script>
+<style scoped>
+.md-raised, .md-button, .md-ripple, .md-button::before {
+    width: 25px !important;
+    min-width: 25px !important;
+}
+@media (max-width: 490px) {
+    .pimage {
+        display: none;
+    }
+    .md-button {
+        margin: 6px 1px !important;
+    }
+}
+
+</style>

@@ -1,112 +1,139 @@
 <template>
-    <div style="padding-top: 1%" class="md-layout md-gutter md-alignment-top-center">
-        <div class="md-layout-item md-size-45">
-            <div class="md-layout md-gutter md-alignment-top-center">
-                <div class="md-layout-item md-size-10" style="margin-top: 1.5%; padding-left: 0">
-                    <md-menu md-direction="bottom-start" class="md-layout-item md-size-95">
+<div>
+    <div id="header" style="padding: 0.5% 0 0.5% 0; background-color: black; display: flex; align-items: start">
+        <div style="padding: 0 0 0 1.5%;">
+            <img src="../assets/rpw.png" alt="" @click="() => { $router.push('/') }" style="cursor: pointer; width: 127px !important">
+        </div>
+        <div style="align-content: center !important; padding-left:0">
+            <md-button class="md-icon-button" style="margin-top: 1%" size="sm" @click="() => $router.push('/edit')">
+                <md-icon>add</md-icon>
+            </md-button>
+        </div>
+        <a href="https://twitter.com/youngkaneda" style="margin-left: auto; margin-right: 10px">
+            <img src="../assets/twitter.webp" style="width: 40px !important"/>
+        </a>
+        <a href="" style="margin-right: 10px">
+            <img src="../assets/bmc_small.png" style="width: 27px !important; filter: drop-shadow(0px 0px 4px white);"/>
+        </a>
+    </div>
+    <div style="padding-top: 1%; display: flex; flex-direction: column;" class="root">
+        <div class="content">
+            <div style="display: flex;">
+                <div style="margin-top: 1.5%; padding-left: 0; padding-right: 1%; width: 71px">
+                    <md-menu md-direction="bottom-start">
                         <img :src="getCastImage(p1.char)" alt="" srcset="" md-menu-trigger>
                         <md-menu-content>
                             <md-menu-item v-for="(char, i) in cast" :key="i" @click="p1.char = char; filter()">
-                                <div class="md-layout-item md-size-35">
-                                    <img :src="getCastImage(char)" alt="" srcset="">
+                                <div>
                                     <span style="text-align: left; margin-left: 10px">{{ char }}</span>
                                 </div>
                             </md-menu-item>
                         </md-menu-content>
                     </md-menu>
                 </div>
-                <md-field class="md-layout-item md-size-85" style="padding-left: 0%">
-                    <label>P1 Name</label>
-                    <md-input v-model="p1.name" @keyup="filter()"></md-input>
-                </md-field>
+                <div style="flex-grow: 1;">
+                    <md-field style="padding-left: 0%">
+                        <label>P1 Name</label>
+                        <md-input v-model="p1.name" @keyup="filter()"></md-input>
+                    </md-field>
+                </div>
             </div>
-            <div class="md-layout md-gutter md-alignment-top-center">
-                <div class="md-layout-item md-size-10" style="margin-top: 1.5%; padding-left: 0">
-                    <md-menu md-direction="bottom-start" class="md-layout-item md-size-95">
+            <div style="display: flex;">
+                <div style="margin-top: 1.5%; padding-left: 0; padding-right: 1%; width: 71px">
+                    <md-menu md-direction="bottom-start">
                         <img :src="getCastImage(p2.char)" alt="" srcset="" md-menu-trigger>
                         <md-menu-content>
                             <md-menu-item v-for="(char, i) in cast" :key="i" @click="p2.char = char; filter()">
-                                <div class="md-layout-item md-size-35">
-                                    <img :src="getCastImage(char)" alt="" srcset="">
+                                <div>
                                     <span style="text-align: left; margin-left: 10px">{{ char }}</span>
                                 </div>
                             </md-menu-item>
                         </md-menu-content>
                     </md-menu>
                 </div>
-                <md-field class="md-layout-item md-size-85" style="padding-left: 0%">
-                    <label>P2 Name</label>
-                    <md-input v-model="p2.name" @keyup="filter()"></md-input>
-                </md-field>
+                <div style="flex-grow: 1;">
+                    <md-field style="padding-left: 0%">
+                        <label>P2 Name</label>
+                        <md-input v-model="p2.name" @keyup="filter()"></md-input>
+                    </md-field>
+                </div>
             </div>
-            <div class="md-layout md-gutter md-alignment-center-center">
-                <md-field class="md-layout-item md-size-95" style="padding-left: 0%">
+            <div style="flex-grow: 1;">
+                <md-field style="padding-left: 0%">
                     <label>Channel</label>
                     <md-input v-model="channel" @keyup="filter()"></md-input>
                 </md-field>
             </div>
-            <div class="md-layout md-gutter md-alignment-center-center">
-                <md-field class="md-layout-item md-size-95" style="padding-left: 0%">
+            <div style="flex-grow: 1;">
+                <md-field style="padding-left: 0%">
                     <label>Title</label>
                     <md-input v-model="title" @keyup="filter()"></md-input>
                 </md-field>
             </div>
-            <div class="md-layout md-gutter md-alignment-center-center"
-                style="margin-top: 1%"
-            >
-                <div class="md-layout-item md-size-95"
-                    v-for="(record, i) in records.filter(filters.compose(filters.video, filters.hasMatches(filters.match))).slice(this.offset, this.offset + 5)"
+            <div style="margin-top: 1%">
+                <div v-for="(record, i) in records.filter(filters.compose(filters.video, filters.hasMatches(filters.match))).slice(this.offset, this.offset + 5)"
                     :key="i"
                 >
-                    <div class="md-layout md-gutter md-alignment-center-center">
-                        <div class="md-layout-item md-size-80" style="display: inline; float: left; padding: 0">
+                    <div style="display: flex;">
+                        <div style="padding: 0; flex-grow: 0">
                             <span class="md-body-2 link" @click="openUrl(record.url)" style="cursor: pointer">{{ record.title }}</span>
                             <br>
                             <span class="md-body-1 link" @click="openUrl(record.channel.url)" style="cursor: pointer">{{ record.channel.name }}</span>
                         </div>
-                        <div class="md-layout-item md-size-20" style="display: inline; padding: 0">
-                            <div style="float: right" @click="editRecord(record)">
-                                <md-icon class="md-size-1x" style="cursor: pointer">edit</md-icon>
+                        <div style="padding: 0; flex-grow: 0; align-self: start; margin-left: auto">
+                            <div style="display: flex;">
+                                <div @click="show(record)" :class="jenkinsOneAtATimeHash(record.title) + 'up_' + i">
+                                    <md-icon class="md-size-1x" style="cursor: pointer; margin-left: 10px">arrow_upward</md-icon>
+                                </div>
+                                <div @click="show(record)" :class="[jenkinsOneAtATimeHash(record.title) + 'down_' + i, 'none']">
+                                    <md-icon class="md-size-1x" style="cursor: pointer; margin-left: 10px">arrow_downward</md-icon>
+                                </div>
+                                <div @click="editRecord(record)">
+                                    <md-icon class="md-size-1x" style="cursor: pointer; margin-left: 10px">edit</md-icon>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="md-layout md-gutter md-alignment-center-center"
+                    <div
                         v-for="(match, i) in record.matches.filter(filters.match)" :key="i"
-                        style="padding-bottom: 1%; border-bottom: 1px solid gray; margin-bottom: 1%"
+                        style="padding-bottom: 1%; border-bottom: 1px solid gray; margin-bottom: 1%; align-items: flex-start; display: flex;"
+                        :class="jenkinsOneAtATimeHash(record.title) + '_' + i"
                     >
-                        <div class="md-layout-item md-size-35" style="padding-right: 0;">
-                            <span class="md-body-2 table-span text" style="float: right">{{ match.p1.name }}</span>
+                        <div style="width: 50%">
+                            <div style="display: flex; align-items: center; justify-content: flex-end">
+                                <span class="pname" style="padding: 0 10px 0 0">{{ match.p1.name }}</span>
+                                <img class="pimage" :src="getCastImage(match.p1.char)" alt="">
+                            </div>
                         </div>
-                        <div class="md-layout-item md-size-10" style="padding-right: 0">
-                            <img :src="getCastImage(match.p1.char)" alt="">
+                        <div style="align-self: center">
+                            <span style="padding: 0 10px 0 10px">VS</span>
                         </div>
-                        <div class="md-layout-item md-size-10" style="padding: 0; text-align: center;">
-                            <span class="md-body-2 table-span">VS</span>
+                        <div style="width: 45%">
+                            <div style="display: flex; align-items: center; justify-content: flex-start">
+                                <img class="pimage" :src="getCastImage(match.p2.char)" alt="">
+                                <span class="pname" style="padding: 0 0 0 10px">{{ match.p2.name }}</span>
+                            </div>
                         </div>
-                        <div class="md-layout-item md-size-10" style="padding-left: 0">
-                            <img :src="getCastImage(match.p2.char)" alt="">
-                        </div>
-                        <div class="md-layout-item md-size-30" style="padding-left: 0">
-                            <span class="md-body-2 table-span text" style="float: left;">{{ match.p2.name }}</span>
-                        </div>
-                        <div @click="openUrl(match.timestamp)" class="md-layout-item md-size-5" style="padding: 0">
-                            <md-icon class="md-size-1x" style="cursor: pointer; float: right">play_circle_fill</md-icon>
+                        <div @click="openUrl(match.timestamp)" style="align-self: center">
+                            <md-icon class="md-size-1x" style="cursor: pointer; padding-left: 10px">play_circle_fill</md-icon>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="md-layout md-gutter md-alignment-center-center" style="margin-bottom: 1%">
+            <div style="margin-bottom: 1%; display: flex; align-items: center; justify-content: center;">
                 <Pagination :total="records.filter(filters.video).filter(filters.hasMatches(filters.match)).length"
                     :reason="pagination.reason" :size="pagination.size" @pageChanged="updateDataTable"
                 />
             </div>
         </div>
     </div>
+</div>    
 </template>
 
 <script>
 import Pagination from './Pagination';
 import Vue from 'vue';
+import $ from 'jquery';
 
 export default {
     components: {
@@ -127,8 +154,8 @@ export default {
         title: '',
         offset: 0,
         pagination: {
-            reason: 5,
-            size: 5,
+            reason: 3,
+            size: 3,
         },
         filters: {
             video: () => true,
@@ -159,9 +186,34 @@ export default {
     },
     mounted() {
         localStorage.removeItem('edit');
+        localStorage.removeItem('temp_url')
         this.$store.commit('edit', null);
     },
     methods: {
+        jenkinsOneAtATimeHash(keyString) {
+            let hash = 0;
+            for (let charIndex = 0; charIndex < keyString.length; ++charIndex) {
+                hash += keyString.charCodeAt(charIndex);
+                hash += hash << 10;
+                hash ^= hash >> 6;
+            }
+            hash += hash << 3;
+            hash ^= hash >> 11;
+            //4,294,967,295 is FFFFFFFF, the maximum 32 bit unsigned integer value, used here as a mask.
+            return (((hash + (hash << 15)) & 4294967295) >>> 0).toString(16)
+        },
+        show(record) {
+            if (record.visible === undefined) {
+                record.visible = true;
+            }
+            let selector = $(`[class^=${this.jenkinsOneAtATimeHash(record.title)}_]`);
+            selector.toggle();
+            selector = $(`[class^=${this.jenkinsOneAtATimeHash(record.title)}up_]`);
+            selector.toggle();
+            selector = $(`[class^=${this.jenkinsOneAtATimeHash(record.title)}down_]`);
+            selector.toggleClass('none');
+            record.visible = !record.visible;
+        },
         openUrl(url) {
             window.open(url, '_blank');
         },
@@ -208,6 +260,13 @@ export default {
 </script>
 
 <style scoped>
+.none {
+    display: none;
+}
+.content {
+    width: 45%;
+    align-self: center;
+}
 .table-span {
     padding: 0 10px 0 10px !important;
 }
@@ -219,5 +278,35 @@ export default {
 }
 .link:hover {
     color: #797979;
+}
+
+.pname {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pimage { }
+
+@media (max-width: 758px) {
+    .content {
+        width: 80%;
+    }
+}
+
+@media (max-width: 410px) {
+    .pimage {
+        display: none;
+    }
+}
+
+@media (max-width: 359px) {
+    .root, #header {
+        width: 359px !important;
+    }
+    .content {
+        width: 287px !important;
+    }
 }
 </style>
