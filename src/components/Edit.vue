@@ -355,7 +355,7 @@ export default {
     margin-top: 2%;
 }
 .md-menu-content {
-    width: 100%;
+    width: fit-content !important;
 }
 .p1 {
     margin-left: 2%;
