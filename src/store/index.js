@@ -9,8 +9,8 @@ export default new Vuex.Store({
     plugins: [createPersistedState()],
     state: {
         cast: [
-            'any', 'alex', 'sean', 'ibuki', 'necro', 'urien', 'gouki', 'yun', 'remy', 'q',
-            'chunli', 'makoto', '12', 'yang', 'ken', 'hugo', 'elena', 'dudley', 'oro', 'ryu',
+            'Any', 'Alex', 'Sean', 'Ibuki', 'Necro', 'Urien', 'Gouki', 'Yun', 'Remy', 'Q',
+            'Chun-Li', 'Makoto', '12', 'Yang', 'Ken', 'Hugo', 'Elena', 'Dudley', 'Oro', 'Ryu',
         ],
         records: [],
         edit: null,

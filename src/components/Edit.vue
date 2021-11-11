@@ -146,9 +146,9 @@ export default {
     computed: {
         cast() {
             let cast = this.deepCopy(this.$store.state.cast);
-            cast.splice(cast.indexOf('any'), 1);
+            cast.splice(cast.indexOf('Any'), 1);
             cast.sort();
-            cast.splice(0, 0, 'any');
+            cast.splice(0, 0, 'Any');
             return cast;
         },
         recordsURL() {
@@ -301,11 +301,11 @@ export default {
         addMatch() {
             this.matches.push({
                 p1: {
-                    char: 'any',
+                    char: 'Any',
                     name: '',
                 },
                 p2: {
-                    char: 'any',
+                    char: 'Any',
                     name: '',
                 },
                 timestamp: '',

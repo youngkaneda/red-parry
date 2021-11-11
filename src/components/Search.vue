@@ -144,11 +144,11 @@ export default {
         initial: "Initial Value",
         p1: {
             name: '',
-            char: 'any',
+            char: 'Any',
         },
         p2: {
             name: '',
-            char: 'any',
+            char: 'Any',
         },
         channel: '',
         title: '',
@@ -173,9 +173,9 @@ export default {
     computed: {
         cast() {
             let cast = this.deepCopy(this.$store.state.cast);
-            cast.splice(cast.indexOf('any'), 1);
+            cast.splice(cast.indexOf('Any'), 1);
             cast.sort();
-            cast.splice(0, 0, 'any');
+            cast.splice(0, 0, 'Any');
             return cast;
         },
         records() {
@@ -219,6 +219,7 @@ export default {
         },
         getCastImage(char) {
             if (this.cast.indexOf(char) === -1) {
+                console.log(char);
                 return null;
             }
             return require('../assets/cast/' + char + '.gif');
@@ -236,8 +237,8 @@ export default {
                 return channel && title;
             }
             this.filters.match = (match) => {
-                const p1Char = this.p1.char === 'any' ? true : match.p1.char === this.p1.char;
-                const p2Char = this.p2.char === 'any' ? true : match.p2.char === this.p2.char;
+                const p1Char = this.p1.char === 'Any' ? true : match.p1.char === this.p1.char;
+                const p2Char = this.p2.char === 'Any' ? true : match.p2.char === this.p2.char;
                 const p1Name = this.p1.name ? match.p1.name.toLowerCase().includes(this.p1.name.toLowerCase()) : true;
                 const p2Name = this.p2.name ? match.p2.name.toLowerCase().includes(this.p2.name.toLowerCase()) : true;
                 return p1Char && p2Char && p1Name && p2Name;
