@@ -219,7 +219,6 @@ export default {
         },
         getCastImage(char) {
             if (this.cast.indexOf(char) === -1) {
-                console.log(char);
                 return null;
             }
             return require('../assets/cast/' + char + '.gif');
