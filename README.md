@@ -6,8 +6,6 @@ This is a webapp created to mantain a database of top players/casual matches for
 
 #### logo designed by: wgclassen@gmail.com
 
-https://redparry.herokuapp.com
-
 ## Instalation
 
 ```
